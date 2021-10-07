@@ -26,7 +26,9 @@ const Profile = ({ session }) => {
         dispatch({ type: 'LOGOUT' })
         localStorage.removeItem('jwt')
     }
-    
+
+    console.log(session)
+
     return (
         <Box className='profile-page'>
             <Typography align='center' variant={'h3'} sx={{marginTop: "2%"}} >Profile Details</Typography>
@@ -38,12 +40,12 @@ const Profile = ({ session }) => {
             <Typography variant={'h4'}>{capitalize(session.currentUser.user.username)}</Typography>
             <ul className='profile-stats-list'>
                 <li><Typography variant={'h5'}>Account Created {account_age}</Typography></li>
-                <li><Typography variant={'h5'}>Followers:</Typography></li>
-                <li><Typography variant={'h5'}>Following:</Typography></li>
-                <li><Typography variant={'h5'}>Number of subjects added:</Typography></li>
-                <li><Typography variant={'h5'}>Number of reviews:</Typography></li>
-                <li><Typography variant={'h5'}>Average rating:</Typography></li>
-                <li><Typography variant={'h5'}>Community Score:</Typography></li>
+                <li><Typography variant={'h5'}>Followers: {session.currentUser.user.social_counts.followers}</Typography></li>
+                <li><Typography variant={'h5'}>Following: {session.currentUser.user.social_counts.following}</Typography></li>
+                <li><Typography variant={'h5'}>Number of subjects added: {session.currentUser.user.social_counts.subjects}</Typography></li>
+                <li><Typography variant={'h5'}>Number of reviews: {session.currentUser.user.social_counts.reviews}</Typography></li>
+                <li><Typography variant={'h5'}>Average rating: {session.currentUser.user.social_counts.avg_rating ? session.currentUser.user.social_counts.avg_rating : 'N/A'}</Typography></li>
+                {/* <li><Typography variant={'h5'}>Community Score:</Typography></li> */}
             </ul>
 
             <Button
