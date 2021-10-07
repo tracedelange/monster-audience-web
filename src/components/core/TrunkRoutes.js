@@ -25,17 +25,19 @@ const TrunkRoutes = () => {
         }
     },[])
 
+    console.log(session)
+
     return (
         <Router>
             <Switch>
                 <Route exact path='/landing'>
-                    {session.loggedIn ? <Redirect to='/home' />  : <LandingPage /> }
+                    {session.loggedIn ? <Redirect to={`/home/${session.currentUser.user.username}/feed`} />  : <LandingPage /> }
                 </Route>
-                <Route exact path='/home'>
+                <Route exact path='/home/:username/*'>
                     {session.loggedIn ? <HomePage /> : <Redirect to='/landing' /> }
                 </Route>
                 <Route path='/'>
-                    {session.loggedIn ? <Redirect to='/home' /> : <Redirect to='/landing' /> }
+                    {session.loggedIn ? <Redirect to={`/home/${session.currentUser.user.username}/feed`} /> : <Redirect to='/landing' /> }
                 </Route>
             </Switch>
         </Router>
