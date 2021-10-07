@@ -4,21 +4,38 @@ import { Typography } from '@mui/material'
 import { Paper } from '@mui/material'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { submitLogin } from '../../authFunctions';
 
-const LandingPageLogin = ({ handleSignupClick }) => {
+const LandingPageLogin = ({ handleSignupClick, updateUserData }) => {
 
     const [submitReady, setSubmitReady] = useState(false)
+    const [errors, setErrors] = useState([])
     const [loginObject, setLoginObject] = useState({
-        email: '',
+        username: '',
         password: '',
     })
 
     const handleFormChange = (e) => {
-
+        setErrors([])
         setLoginObject({
             ...loginObject,
             [e.target.id]: e.target.value
         })
+
+    }
+
+    const handleLoginSubmit = (e) => {
+
+        e.preventDefault()
+        submitLogin(loginObject)
+        .then((data) => {
+            if (data.errors){
+                setErrors(data)
+            } else {
+                updateUserData(data)
+            }
+        })
+
 
     }
 
@@ -34,6 +51,7 @@ const LandingPageLogin = ({ handleSignupClick }) => {
 
     }, [loginObject])
 
+
     return (
         <Box className='landing-session'>
 
@@ -41,12 +59,15 @@ const LandingPageLogin = ({ handleSignupClick }) => {
                 <Typography align='center' variant='h2' sx={{ paddingTop: '5vh' }}>
                     Login
                 </Typography>
-                <form id='session-form' onChange={handleFormChange}>
-                    <TextField className='session-text' id='email' type='text' label='Email' variant="outlined" />
-                    <TextField className='session-text' id='password' type='password' label='Password' variant="outlined" />
-                    <Button variant="outlined" disabled={!submitReady}>
+                <form id='session-form' onChange={handleFormChange} onSubmit={handleLoginSubmit}>
+                    <TextField className='session-text' id='username' error={errors.errors ? true : false} type='text' label='Username' variant="outlined" />
+                    <TextField className='session-text' id='password' error={errors.errors ? true : false} type='password' label='Password' variant="outlined" />
+                    <Button type='submit' variant="outlined" disabled={!submitReady}>
                         Submit
                     </Button>
+                    <Typography sx={{color: 'red'}} className='session-inverse-text' onClick={handleSignupClick}>
+                        {errors ? errors.errors : null}
+                    </Typography>
                     <Typography className='session-inverse-text' onClick={handleSignupClick}>
                         No account? Signup.
                     </Typography>

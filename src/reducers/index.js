@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
+import sessionsReducer from './sessionsReducer'
 
 export default combineReducers({
-    // errors: errorsReducer,
-    // requesting: requestingReducer,
-    // sessions: sessionsReducer,
-    // videos: videosReducer
-  })
+  session: sessionsReducer,
+})
+// errors: errorsReducer,
+// requesting: requestingReducer,
+// videos: videosReducer

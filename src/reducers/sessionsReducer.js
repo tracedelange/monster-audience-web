@@ -1,15 +1,17 @@
 const initialState = {
-    currentUser: {
-      id: 6,
-      first_name: "Bob",
-      last_name: "Bob",
-      email: "bob@test.com"
-    },
-    loggedIn: true
+    currentUser: {},
+    loggedIn: false
   }
   
-  const sessionsReducer = (state=initialState, action) => {
+const sessionsReducer = (state=initialState, action) => {
     switch(action.type) {
+      case "LOGIN":
+        return {
+          currentUser: action.payload,
+          loggedIn: true
+        }
+      case "LOGOUT":
+        return initialState;
       default:
         return state;
     }
