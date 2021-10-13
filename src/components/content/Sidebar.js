@@ -31,8 +31,8 @@ const Sidebar = ({ base }) => {
                 Feed
                 <FormatListBulletedIcon />
             </Button>
-            <Button variant='contained' color='primary' id='search' onClick={handleLinkClick}>
-                Search
+            <Button variant='contained' color='primary' id='users' onClick={handleLinkClick}>
+                Users
                 <SearchIcon />
             </Button>
             <Button variant='contained' color='primary' id='subjects' onClick={handleLinkClick}>

@@ -14,6 +14,16 @@ export const addReviewToFeed = (newReview, index) => {
   }
 }
 
+export const addNextPage = (newItems, pageNumber) => {
+  return {
+    type: "ADD_NEXT_PAGE",
+    payload: {
+      newItems: newItems,
+      pageNumber: pageNumber
+    }
+  }
+}
+
 export const deleteReviewStore = (review_id) => {
   return {
     type: "DELETE_REVIEW",

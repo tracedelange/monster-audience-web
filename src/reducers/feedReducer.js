@@ -1,5 +1,6 @@
 const initialState = {
-    feed: []
+    feed: [],
+    page: 0
   }
   
 const feedReducer = (state=initialState, action) => {
@@ -8,6 +9,13 @@ const feedReducer = (state=initialState, action) => {
         return {
             feed: [...state, action.payload]
         }
+      case 'ADD_NEXT_PAGE':
+        return {
+          ...state,
+          feed: [...state.feed, ...action.payload.newItems],
+          page: state.page + 1
+        }
+
       case "ADD_REVIEW":
         return {
           ...state,
@@ -43,7 +51,10 @@ const feedReducer = (state=initialState, action) => {
         }
 
       case "SET_FEED":
-        return {feed: [...action.payload]};
+        return {
+          ...state,
+          feed: [...action.payload]
+        };
       default:
         return state;
     }

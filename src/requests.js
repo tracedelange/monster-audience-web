@@ -1,13 +1,13 @@
 import { baseURL } from "./globals";
 
 
-export const getUserFeed = async () => {
+export const getUserFeed = async (page=0) => {
     
     
     const token = localStorage.getItem('jwt')
     const method = "GET"
     const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
-    const response = await fetch(`${baseURL}/feed`, { method: method, headers: headers })
+    const response = await fetch(`${baseURL}/feed?page=${page}`, { method: method, headers: headers })
     const data = await response.json()
     return data
 
@@ -33,5 +33,16 @@ export const deleteReview = async (review_id) => {
     const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
     const response = await fetch(`${baseURL}/reviews/${review_id}`, { method: method, headers: headers })
     const data = await response
+    return data
+}
+
+
+export const searchUsers = async (query) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/users/search?query=${query}`, { method: method, headers: headers })
+    const data = await response.json()
     return data
 }

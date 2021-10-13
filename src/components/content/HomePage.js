@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import Profile from './Profile'
 import { Paper } from '@mui/material'
 import {getUserFeed} from '../../requests'
-import SearchPage from './search/SearchPage'
+import UsersPage from './users/UsersPage'
+import SubjectsPage from './subjects/SubjectsPage'
 
 const HomePage = () => {
 
@@ -30,11 +31,11 @@ const HomePage = () => {
             <Sidebar base={base} />
             <Paper className='content-stage' elevation={2}>
                 <Switch>
-                    <Route exact path={`${base}/search`}>
-                        <SearchPage />
+                    <Route exact path={`${base}/users`}>
+                        <UsersPage />
                     </Route>
                     <Route exact path={`${base}/subjects`}>
-                        <Feed />
+                        <SubjectsPage />
                     </Route>
                     <Route exact path={`${base}/reviews`}>
                         <Feed />
