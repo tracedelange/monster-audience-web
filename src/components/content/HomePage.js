@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Feed from './Feed'
+import Feed from './feed/Feed'
 import Sidebar from './Sidebar'
 import { Switch, Route } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,6 +18,7 @@ const HomePage = () => {
     useEffect(()=>{
         getUserFeed()
         .then(data => {
+            console.log(data)
             dispatch({ type: "SET_FEED", payload: data})
         })
     },[])

@@ -4,6 +4,22 @@ export const setFeed = feed => {
       payload: feed
     }
   }
+
+export const addReviewToFeed = (newReview, index) => {
+  return {
+    type: 'ADD_REVIEW',
+    payload: {
+      data:newReview,
+      feedIndex: index}
+  }
+}
+
+export const deleteReviewStore = (review_id) => {
+  return {
+    type: "DELETE_REVIEW",
+    payload: review_id
+  }
+}
   
 export const refreshFeed = (newItems) => {
     return {

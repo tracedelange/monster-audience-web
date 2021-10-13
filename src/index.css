@@ -178,7 +178,7 @@ code {
   display: flex;
   flex-direction: row;
   /* transition: "all .4s ease-in", */
-  transition: all .4s ease-in;
+  transition: all .2s ease-in;
 }
 
 .review-item:hover {
@@ -224,23 +224,42 @@ code {
   padding-left: 5%;
   padding-right: 5%;
   padding-bottom: 2%;
-  width: 20%;
+  min-width: 20%;
+  max-width: 20%;
 }
 
 .contentBox {
   flex-grow: 2;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: baseline;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.internal-content-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%
 }
 
 .contentBox p {
-  margin-top: 3%;
+  text-align: left;
+  /* margin-top: 3%; */
   margin-left: 5%;
-  font-size: 20px;
+  margin-right: 5%;
+  font-size: 16px;
 
 }
+
+.contentBox svg {
+
+  margin-right: 5%;
+
+}
+
 .subject-title-container {
   flex-grow: 2;
 }
@@ -250,4 +269,10 @@ code {
 }
 .add-review-container svg{
   /* font-size: 20px; */
+}
+
+
+.removeSVG:hover {
+  cursor: pointer;
+
 }

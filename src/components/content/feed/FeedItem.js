@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Box } from '@mui/system'
 import { Paper, Typography } from '@mui/material'
 import ReviewItem from './ReviewItem'
@@ -6,29 +6,29 @@ import { Divider } from '@mui/material'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 import AddBoxIcon from '@mui/icons-material/AddBox';
-
+import NewReviewForm from './NewReviewForm'
 
 
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-const FeedItem = ({ data }) => {
+const FeedItem = ({ data, feedIndex, user }) => {
 
     const reviewArray = data.reviews.map((item) => {
         if (item) {
-            return <ReviewItem timeAgo={timeAgo} key={item.id} data={item} />
+
+            return <ReviewItem feedIndex={feedIndex} user={user} timeAgo={timeAgo} key={item.id} data={item} />
         }
     })
 
+    
     const now = new Date()
     const dif = now.getTime() - Date.parse(data.created_at)
     const subject_age = timeAgo.format(now.getTime() - dif)
-
+    
+    const [newReviewOpen, setNewReviewOpen] = useState(false)
     const handleAddReviewClick = (e, subject) => {
-
-        console.log(subject)
-
-
+        setNewReviewOpen(!newReviewOpen)
     }
 
 
@@ -74,11 +74,13 @@ const FeedItem = ({ data }) => {
                     <div className='subject-content-right'>
                         <Typography>Posted {subject_age}, by {data.username} </Typography>
                         <Typography>{data.reviews.length} Review(s)</Typography>
-                        <Typography>{(data.avg_rating) / 2}/5 Average</Typography>
+                        <Typography>Average Rating: {parseFloat(data.avg_rating) ? (parseFloat(data.avg_rating).toFixed(1))+"/10" : "N/A" }</Typography>
 
                     </div>
                 </Box>
                 <ul className='review-item-list'>
+                    {newReviewOpen ? <NewReviewForm feedIndex={feedIndex} closeForm={()=>{setNewReviewOpen(false)}} subjectId={data.id}/> : null}
+                    {/* <NewReviewForm open={newReviewOpen} feedIndex={feedIndex} subjectId={data.id}/> */}
                     {reviewArray}
                 </ul>
 

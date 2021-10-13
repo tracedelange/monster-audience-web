@@ -8,6 +8,7 @@ import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import ThumbsUpDownOutlinedIcon from '@mui/icons-material/ThumbsUpDownOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import GroupIcon from '@mui/icons-material/Group';
 
 const Sidebar = ({ base }) => {
 
@@ -29,6 +30,10 @@ const Sidebar = ({ base }) => {
             <Button variant='contained' color='primary' id='feed' onClick={handleLinkClick}>
                 Feed
                 <FormatListBulletedIcon />
+            </Button>
+            <Button variant='contained' color='primary' id='users' onClick={handleLinkClick}>
+                Users
+                <GroupIcon />
             </Button>
             <Button variant='contained' color='primary' id='subjects' onClick={handleLinkClick}>
                 Subjects

@@ -22,6 +22,7 @@ const LandingPage = () => {
         //useDispatch to update state to logged in, plus add jwt token to local storage.
         dispatch({ type: "LOGIN", payload: userData})
         localStorage.setItem('jwt', userData.jwt);
+        console.log(userData)
     }
 
     return (
