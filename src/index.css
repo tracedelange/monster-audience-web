@@ -309,3 +309,24 @@ code {
   flex-basis: 100%;
   height: 0;
 }
+
+.search-result-list {
+
+  overflow-y: scroll;
+  list-style: none;
+  height: 78.4vh;
+  width: 100%;
+  padding-left: 0%;
+}
+.search-result-item {
+
+  height: 12vh;
+  background-color: #e3f9ff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 3px solid #1481BA;
+  margin-bottom: 1%;
+  margin-left: 10%;
+  width: 80%;
+}
