@@ -1,16 +1,28 @@
-import React from 'react'
-import Feed from './Feed'
+import React, { useState, useEffect } from 'react'
+import Feed from './feed/Feed'
 import Sidebar from './Sidebar'
 import { Switch, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Profile from './Profile'
 import { Paper } from '@mui/material'
+import {getUserFeed} from '../../requests'
 
 const HomePage = () => {
 
     const session = useSelector(state => state.session);
 
     const base = `/home/${session.currentUser.user.username}`
+
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        getUserFeed()
+        .then(data => {
+            console.log(data)
+            dispatch({ type: "SET_FEED", payload: data})
+        })
+    },[])
+
 
     return (
         <>

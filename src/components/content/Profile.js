@@ -44,7 +44,7 @@ const Profile = ({ session }) => {
                 <li><Typography variant={'h5'}>Following: {session.currentUser.user.social_counts.following}</Typography></li>
                 <li><Typography variant={'h5'}>Number of subjects added: {session.currentUser.user.social_counts.subjects}</Typography></li>
                 <li><Typography variant={'h5'}>Number of reviews: {session.currentUser.user.social_counts.reviews}</Typography></li>
-                <li><Typography variant={'h5'}>Average rating: {session.currentUser.user.social_counts.avg_rating ? session.currentUser.user.social_counts.avg_rating : 'N/A'}</Typography></li>
+                <li><Typography variant={'h5'}>Average rating: {session.currentUser.user.social_counts.avg_rating ? parseFloat(session.currentUser.user.social_counts.avg_rating).toFixed(2) : 'N/A'}</Typography></li>
                 {/* <li><Typography variant={'h5'}>Community Score:</Typography></li> */}
             </ul>
 

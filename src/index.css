@@ -137,3 +137,142 @@ code {
 .profile-stats-list li {
   margin-top: 2%;
 }
+
+.feed-content {
+  margin-top: 0%;
+  margin-bottom: 0%;
+  overflow-y: scroll;
+  height: 96vh;
+  list-style: none;
+}
+.feed-item {
+
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+
+
+}
+
+.feed-item-paper {
+  background-color: #e3f9ff;
+}
+
+.feed-item-paper:hover {
+  background-color: '#B3EAF9';
+  cursor: default;
+}
+
+.review-item-list {
+
+  list-style: none;
+  padding: 0%;
+}
+
+.review-item {
+
+  /* margin-bottom: 2%; */
+  /* padding-bottom: 2%; */
+  background-color: white;
+  /* color: white; */
+  display: flex;
+  flex-direction: row;
+  /* transition: "all .4s ease-in", */
+  transition: all .2s ease-in;
+}
+
+.review-item:hover {
+  background-color: #65aad0;
+  color: white;
+}
+
+.subject-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.subject-content-right {
+  width: 40%;
+  
+}
+.subject-content-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 2;
+}
+
+.subject-content p {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  font-size: 2vmin;
+
+}
+
+.rating{
+  font-size: 3vw;
+  margin: 0%;
+  margin-top: 4%;
+}
+
+.infoBox {
+  margin: 0%;
+  padding-top: 0;
+  padding-bottom: 0%;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 2%;
+  min-width: 20%;
+  max-width: 20%;
+}
+
+.contentBox {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.internal-content-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%
+}
+
+.contentBox p {
+  text-align: left;
+  /* margin-top: 3%; */
+  margin-left: 5%;
+  margin-right: 5%;
+  font-size: 16px;
+
+}
+
+.contentBox svg {
+
+  margin-right: 5%;
+
+}
+
+.subject-title-container {
+  flex-grow: 2;
+}
+
+.add-review-container{
+  justify-self: flex-start;
+}
+.add-review-container svg{
+  /* font-size: 20px; */
+}
+
+
+.removeSVG:hover {
+  cursor: pointer;
+
+}
