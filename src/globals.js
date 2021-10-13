@@ -1,4 +1,4 @@
-export const baseURL = process.env.REACT_APP_BASE_URL_PROD;
+export const baseURL = process.env.REACT_APP_BASE_URL;
 
 
 export const capitalize = (string) => {
