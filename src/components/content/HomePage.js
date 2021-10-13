@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Profile from './Profile'
 import { Paper } from '@mui/material'
 import {getUserFeed} from '../../requests'
+import SearchPage from './search/SearchPage'
 
 const HomePage = () => {
 
@@ -29,8 +30,8 @@ const HomePage = () => {
             <Sidebar base={base} />
             <Paper className='content-stage' elevation={2}>
                 <Switch>
-                    <Route exact path={`${base}/feed`}>
-                        <Feed />
+                    <Route exact path={`${base}/search`}>
+                        <SearchPage />
                     </Route>
                     <Route exact path={`${base}/subjects`}>
                         <Feed />
@@ -43,6 +44,9 @@ const HomePage = () => {
                     </Route>
                     <Route exact path={`${base}/profile`}>
                         <Profile session={session} />
+                    </Route>
+                    <Route path={`${base}/feed`}>
+                        <Feed />
                     </Route>
                 </Switch>
             </Paper>
