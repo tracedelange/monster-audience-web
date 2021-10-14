@@ -1,26 +1,33 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import SearchBar from '../search/SearchBar'
 import { searchUsers } from '../../../requests'
 import UserSearchResultItem from './UserSearchResultItem'
+import NoResultsFound from '../search/NoResultsFound'
+import TimeAgo from 'javascript-time-ago'
+
+
+const timeAgo = new TimeAgo('en-US')
 
 const UsersPage = () => {
 
+
+
     const handleUserSearchSubmit = (query) => {
         searchUsers(query)
-        .then(response => {
-            setSearchResults(response)
-        })
+            .then(response => {
+                setSearchResults(response)
+                setFirstQuery(true)
+
+            })
     }
 
+    const [firstQuery, setFirstQuery] = useState(false)
     const [searchResults, setSearchResults] = useState([])
     const [searchResultsArray, setSearchResultsArray] = useState([])
 
     useEffect(() => {
-
-        if (searchResults.length > 0){
-            let array = searchResults.map(item => <UserSearchResultItem key={item.id} data={item} />)
-            setSearchResultsArray(array)
-        }
+        let array = searchResults.map(item => <UserSearchResultItem timeAgo={timeAgo} key={item.id} data={item} />)
+        setSearchResultsArray(array)
 
     }, [searchResults])
 
@@ -34,8 +41,15 @@ const UsersPage = () => {
 
             </div>
             <ul className='search-result-list'>
-                {searchResultsArray}
-            </ul>           
+                {searchResultsArray.length > 0 ?
+                    searchResultsArray
+                    :
+                    firstQuery ?
+                        <NoResultsFound />
+                        :
+                        null
+                }
+            </ul>
         </div>
     )
 }

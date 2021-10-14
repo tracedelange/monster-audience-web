@@ -3,20 +3,18 @@ import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 
-
 const SearchBar = ({label, handleSubmission}) => {
 
     const [query, setQuery] = useState('')
+
 
     const handleChange = (e) => {
         setQuery(e.target.value)
     }
 
     const handleFormSubmit = (e) => {
-
         e.preventDefault()
-        handleSubmission(query)
-
+        handleSubmission((query).toLowerCase())
     }
 
 
@@ -36,6 +34,7 @@ const SearchBar = ({label, handleSubmission}) => {
                     <Button
                         className='search-submission'
                         type='submit'
+                        disabled={query.length > 0 ? false : true}
                         variant='contained'
                         sx={{ color: "white", fontSize: '2.5vmin' }}
                     >Submit</Button>

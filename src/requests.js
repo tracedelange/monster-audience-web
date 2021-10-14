@@ -46,3 +46,22 @@ export const searchUsers = async (query) => {
     const data = await response.json()
     return data
 }
+
+export const createFriendShip = async (user_id) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "POST"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/friendships?friend_id=${user_id}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+}
+export const destroyFriendShip = async (user_id) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "DELETE"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/friendships/${user_id}`, { method: method, headers: headers })
+    const data = await response
+    return data
+}
