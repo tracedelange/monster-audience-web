@@ -3,10 +3,17 @@ import { Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { Button } from '@mui/material'
 import { createFriendShip, destroyFriendShip } from '../../../requests'
+import { useHistory } from 'react-router-dom'
 
 
-const UserSearchResultItem = ({ data, timeAgo }) => {
-
+const UserSearchResultItem = ({ data, timeAgo, base }) => {
+    
+    const history = useHistory();
+    
+    const handleUserClick = (e) => {
+        console.log('clicked')
+        history.push(`${base}/users/${data.id}`)
+    }
 
     const created_at = Date.parse(data.created_at)
     const now = new Date()
@@ -18,9 +25,6 @@ const UserSearchResultItem = ({ data, timeAgo }) => {
 
 
     const handleFriendshipClick = (e, user_id) => {
-        console.log(e.target.id)
-        console.log(user_id)
-
         switch (e.target.id) {
             case "follow":
                 console.log('createFriendship')
@@ -53,7 +57,9 @@ const UserSearchResultItem = ({ data, timeAgo }) => {
 
                             cursor: "pointer",
                         }}
-                        className='search-result-username'>
+                        className='search-result-username'
+                        onClick={handleUserClick}
+                        >
                         {data.username}
                     </Typography>
                 </Box>
@@ -64,6 +70,8 @@ const UserSearchResultItem = ({ data, timeAgo }) => {
                 </Box>
                 <Divider orientation='vertical' flexItem variant='middle' />
                 <Box className='button-container'>
+
+
                     <Button
                         variant='contained'
                         onClick={((e) => { handleFriendshipClick(e, data.id) })}

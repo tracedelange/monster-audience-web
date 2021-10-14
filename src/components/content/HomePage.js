@@ -8,6 +8,8 @@ import { Paper } from '@mui/material'
 import {getUserFeed} from '../../requests'
 import UsersPage from './users/UsersPage'
 import SubjectsPage from './subjects/SubjectsPage'
+import UserDetailsPage from './users/UserDetailsPage'
+
 
 const HomePage = () => {
 
@@ -20,7 +22,6 @@ const HomePage = () => {
     useEffect(()=>{
         getUserFeed()
         .then(data => {
-            console.log(data)
             dispatch({ type: "SET_FEED", payload: data})
         })
     },[])
@@ -32,7 +33,7 @@ const HomePage = () => {
             <Paper className='content-stage' elevation={2}>
                 <Switch>
                     <Route exact path={`${base}/users`}>
-                        <UsersPage />
+                        <UsersPage base={base} />
                     </Route>
                     <Route exact path={`${base}/subjects`}>
                         <SubjectsPage />
@@ -43,11 +44,14 @@ const HomePage = () => {
                     <Route exact path={`${base}/messages`}>
                         <Feed />
                     </Route>
+                    <Route path={`${base}/users/:id`}>
+                        <UserDetailsPage base={base} />
+                    </Route>
                     <Route exact path={`${base}/profile`}>
                         <Profile session={session} />
                     </Route>
                     <Route path={`${base}/feed`}>
-                        <Feed />
+                        <Feed base={base} />
                     </Route>
                 </Switch>
             </Paper>

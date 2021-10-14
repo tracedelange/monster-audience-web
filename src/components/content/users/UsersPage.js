@@ -8,7 +8,7 @@ import TimeAgo from 'javascript-time-ago'
 
 const timeAgo = new TimeAgo('en-US')
 
-const UsersPage = () => {
+const UsersPage = ({base}) => {
 
 
 
@@ -26,7 +26,7 @@ const UsersPage = () => {
     const [searchResultsArray, setSearchResultsArray] = useState([])
 
     useEffect(() => {
-        let array = searchResults.map(item => <UserSearchResultItem timeAgo={timeAgo} key={item.id} data={item} />)
+        let array = searchResults.map(item => <UserSearchResultItem base={base} timeAgo={timeAgo} key={item.id} data={item} />)
         setSearchResultsArray(array)
 
     }, [searchResults])

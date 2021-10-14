@@ -13,6 +13,17 @@ export const getUserFeed = async (page=0) => {
 
 }
 
+export const getSpecificUserFeed = async (id, page=0) => {
+       
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/feed/${id}?page=${page}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+
+}
+
 export const postReview = async (newReview) => {
 
     const token = localStorage.getItem('jwt')
@@ -65,3 +76,4 @@ export const destroyFriendShip = async (user_id) => {
     const data = await response
     return data
 }
+

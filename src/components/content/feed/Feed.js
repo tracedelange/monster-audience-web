@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import {getUserFeed} from '../../../requests'
 import { addNextPage } from '../../../actions/feed';
 
-const Feed = () => {
+const Feed = ({base}) => {
 
     const [feedArray, setFeedArray] = useState()
     const { feed } = useSelector(state => state.feed);
@@ -17,7 +17,7 @@ const Feed = () => {
 
     useEffect(() => {
         if (feed.length > 0) {
-            const feedArray = feed.map((item) => <FeedItem user={session.currentUser.user} key={item.id} feedIndex={feed.indexOf(item)} data={item} />)
+            const feedArray = feed.map((item) => <FeedItem user={session.currentUser.user} base={base} key={item.id} feedIndex={feed.indexOf(item)} data={item} />)
             setFeedArray(feedArray)
         }
     }, [feed])

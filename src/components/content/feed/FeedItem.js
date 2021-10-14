@@ -7,17 +7,17 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import NewReviewForm from './NewReviewForm'
-
+import {useHistory} from 'react-router-dom'
 
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-const FeedItem = ({ data, feedIndex, user }) => {
+const FeedItem = ({ data, feedIndex, user, base }) => {
 
     const reviewArray = data.reviews.map((item) => {
         if (item) {
 
-            return <ReviewItem feedIndex={feedIndex} user={user} timeAgo={timeAgo} key={item.id} data={item} />
+            return <ReviewItem base={base} feedIndex={feedIndex} user={user} timeAgo={timeAgo} key={item.id} data={item} />
         }
     })
 
@@ -31,6 +31,11 @@ const FeedItem = ({ data, feedIndex, user }) => {
         setNewReviewOpen(!newReviewOpen)
     }
 
+    const history = useHistory();
+
+    const handleUsernameClick = () => {
+        history.push(`${base}/users/${data.user_id}`)
+    }
 
     return (
         <li className='feed-item'>
@@ -72,7 +77,7 @@ const FeedItem = ({ data, feedIndex, user }) => {
                     </div>
                     <Divider orientation='vertical' flexItem />
                     <div className='subject-content-right'>
-                        <Typography>Posted {subject_age}, by {data.username} </Typography>
+                        <Typography onClick={handleUsernameClick} sx={{'&:hover': {cursor: 'pointer'}}}>Posted {subject_age}, by {data.username} </Typography>
                         <Typography>{data.reviews.length} Review(s)</Typography>
                         <Typography>Average Rating: {parseFloat(data.avg_rating) ? (parseFloat(data.avg_rating).toFixed(1))+"/10" : "N/A" }</Typography>
 
