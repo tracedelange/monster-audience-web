@@ -314,11 +314,12 @@ code {
 
   overflow-y: scroll;
   list-style: none;
-  height: 77vh;
+  max-height: 77vh;
+  min-height: fit-content;
   width: 80%;
   margin-left: 10%;
   padding-left: 0%;
-  border: 3px solid #1481BA;
+  border: 2px solid #1481BA;
 }
 .search-result-item {
 
@@ -506,4 +507,34 @@ text-align: center;
 .user-details-stats {
   display: flex;
   flex-direction: column;
+}
+
+
+.subject-search-results {
+  width: 50%;
+  flex-grow: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.subject-search-results p {
+
+}
+
+
+.subject-options-container {
+  
+  width: 80%;
+  height: 6vh;
+  margin-top: 1%;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+
 }

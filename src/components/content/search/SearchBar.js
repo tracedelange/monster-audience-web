@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 
-const SearchBar = ({label, handleSubmission}) => {
+const SearchBar = ({label, handleSubmission, lowerCaseQuery=true}) => {
 
     const [query, setQuery] = useState('')
 
@@ -14,7 +14,12 @@ const SearchBar = ({label, handleSubmission}) => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        handleSubmission((query).toLowerCase())
+
+        if (lowerCaseQuery){
+            handleSubmission((query).toLowerCase())
+        } else {
+            handleSubmission(query)
+        }
     }
 
 

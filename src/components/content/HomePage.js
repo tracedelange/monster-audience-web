@@ -36,7 +36,7 @@ const HomePage = () => {
                         <UsersPage base={base} />
                     </Route>
                     <Route exact path={`${base}/subjects`}>
-                        <SubjectsPage />
+                        <SubjectsPage base={base} />
                     </Route>
                     <Route exact path={`${base}/reviews`}>
                         <Feed />

@@ -57,6 +57,15 @@ export const searchUsers = async (query) => {
     const data = await response.json()
     return data
 }
+export const searchSubjects = async (query) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/subjects/search?query=${query}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+}
 
 export const createFriendShip = async (user_id) => {
 

@@ -48,7 +48,7 @@ const UserDetailsPage = ({base}) => {
                     setDataLoaded(true)
                 }
             })
-    }, [])
+    }, [id])
 
 
 
@@ -59,7 +59,7 @@ const UserDetailsPage = ({base}) => {
                 feed.map(item => <UserDetailsSubjectFeedItem base={base} timeAgo={timeAgo} key={item.key} data={item} userData={userDetails} />)
             )
         }
-    }, [feed])
+    }, [feed, id])
 
     const handleFriendshipClick = (e, user_id) => {
         switch (e.target.id) {
