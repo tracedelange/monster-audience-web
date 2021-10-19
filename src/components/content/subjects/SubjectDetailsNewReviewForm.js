@@ -9,9 +9,9 @@ import { useDispatch } from 'react-redux';
 import { addReviewToFeed } from '../../../actions/feed'
 
 
-const NewReviewForm = ({ closeForm, subjectId }) => {
+const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendReview }) => {
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const [newReviewObject, setNewReviewObject] = useState({
         rating: 0,
@@ -23,18 +23,15 @@ const NewReviewForm = ({ closeForm, subjectId }) => {
         e.preventDefault()
         // console.log(newReviewObject)
         // console.log()
-        // postReview(newReviewObject)
-        //     .then(data => {
-        //         if (data.errors) {
-        //             console.log("We've got a problem!")
-        //             console.log(data.errors)
-        //         } else {
-        //             //dispatch to add review to feed? 
-        //             dispatch(addReviewToFeed(data, feedIndex))
-        //             closeForm()
-
-        //         }
-        //     })
+        postReview(newReviewObject)
+            .then(data => {
+                if (data.errors) {
+                    console.log("We've got a problem!")
+                    console.log(data.errors)
+                } else {
+                    appendReview(data)
+                }
+            })
 
     }
 
@@ -50,8 +47,8 @@ const NewReviewForm = ({ closeForm, subjectId }) => {
         <>
             < Divider />
             <form onSubmit={handleReviewSubmission}>
-                <li className='review-item' >
-                    <div className='infoBox'>
+                <li className='subject-details-new-review' >
+                    <div className='subject-details-infoBox'>
 
                         <h2 className='rating'>{(newReviewObject.rating)}/10</h2>
                         <Rating sx={{ fontSize: '1vw', }} name="rating" value={newReviewObject.rating} max={10} onChange={handleInputChange} />
@@ -65,15 +62,6 @@ const NewReviewForm = ({ closeForm, subjectId }) => {
                                 sx={{
                                     width: '80%',
                                     left: "5%",
-                                }}
-                                InputProps={{
-
-                                    sx: {
-                                        border: "white",
-                                        '&:hover': {
-                                            color: "white",
-                                        }
-                                    }
                                 }}
                                 name='content'
                                 multiline
@@ -102,4 +90,4 @@ const NewReviewForm = ({ closeForm, subjectId }) => {
     )
 }
 
-export default NewReviewForm
+export default SubjectDetailsNewReviewForm

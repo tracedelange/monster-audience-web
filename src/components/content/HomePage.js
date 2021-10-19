@@ -9,7 +9,7 @@ import {getUserFeed} from '../../requests'
 import UsersPage from './users/UsersPage'
 import SubjectsPage from './subjects/SubjectsPage'
 import UserDetailsPage from './users/UserDetailsPage'
-
+import SubjectDetailsPage from './subjects/SubjectDetailsPage'
 
 const HomePage = () => {
 
@@ -38,8 +38,8 @@ const HomePage = () => {
                     <Route exact path={`${base}/subjects`}>
                         <SubjectsPage base={base} />
                     </Route>
-                    <Route exact path={`${base}/reviews`}>
-                        <Feed />
+                    <Route exact path={`${base}/subjects/:id`}>
+                        <SubjectDetailsPage base={base} />
                     </Route>
                     <Route exact path={`${base}/messages`}>
                         <Feed />

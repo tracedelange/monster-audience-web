@@ -2,12 +2,11 @@ import React, {useState} from 'react'
 import { Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { Button } from '@mui/material'
-import { useHistory } from 'react-router-dom'
 
 
-const SubjectSearchResultItem = ({ data, timeAgo, base }) => {
+const SubjectSearchResultItem = ({ data, timeAgo, base, history }) => {
     
-    const history = useHistory();
+
     
     // const handleUserClick = (e) => {
     //     console.log('clicked')
@@ -20,7 +19,9 @@ const SubjectSearchResultItem = ({ data, timeAgo, base }) => {
 
     const subject_age = timeAgo.format(now.getTime() - dif)
 
-    // const [following, setFollowing] = useState(data.following)
+    const handleUserClick = () => {
+        history.push(`${base}/subjects/${data.id}`)
+    }
 
     return (
         <>
@@ -33,7 +34,7 @@ const SubjectSearchResultItem = ({ data, timeAgo, base }) => {
                             cursor: "pointer",
                         }}
                         className='search-result-username'
-                        // onClick={handleUserClick}
+                        onClick={handleUserClick}
                         >
                         {data.name}
                     </Typography>

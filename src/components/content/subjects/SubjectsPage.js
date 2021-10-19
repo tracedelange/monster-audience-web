@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import SearchBar from '../search/SearchBar'
 import NoResultsFound from '../search/NoResultsFound'
-import TimeAgo from 'javascript-time-ago'
 import SubjectSearchResultItem from './SubjectSearchResultItem'
 import { searchSubjects } from '../../../requests'
 import SubjectOptions from './SubjectOptions'
 import { getWorstSubjects, getBestSubjects, getRecentSubjects } from '../../../requests'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSubjects, addNextSubjectsPage} from '../../../actions/subjects'
-
+import { useHistory } from 'react-router'
+import TimeAgo from 'javascript-time-ago'
 
 const timeAgo = new TimeAgo('en-US')
 
 const SubjectsPage = ({ base }) => {
 
-
+    const history = useHistory()
     const [searchResultsArray, setSearchResultsArray] = useState([])
     const [firstQuery, setFirstQuery] = useState(false)
     // const [searchResults, setSearchResults] = useState([])
@@ -112,7 +112,7 @@ const SubjectsPage = ({ base }) => {
 
 
     useEffect(() => { //Anytime feed state is updated, new results will be rendered.
-        let array = subjectFeed.map(item => <SubjectSearchResultItem base={base} timeAgo={timeAgo} key={item.id} data={item} />)
+        let array = subjectFeed.map(item => <SubjectSearchResultItem base={base} timeAgo={timeAgo} key={item.id} data={item} history={history} />)
         setSearchResultsArray(array)
     }, [subjectFeed])
 

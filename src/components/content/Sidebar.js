@@ -45,10 +45,6 @@ const Sidebar = ({ base }) => {
                 Subjects
                 <LocalActivityOutlinedIcon />
             </Button>
-            <Button variant='contained' color='primary' id='reviews' onClick={handleLinkClick}>
-                Reviews
-                <ThumbsUpDownOutlinedIcon />
-            </Button>
             <Button variant='contained' color='primary' id='messages' onClick={handleLinkClick}>
                 Messages
                 <MessageOutlinedIcon />

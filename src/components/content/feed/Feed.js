@@ -22,9 +22,6 @@ const Feed = ({base}) => {
         }
     }, [feed])
 
-    // console.log(feed)
-    // console.log(page)
-
     const handleScroll = (e) => {
 
         if (e.target.scrollHeight - e.target.scrollTop === (e.target.clientHeight)) {
