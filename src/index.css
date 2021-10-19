@@ -29,14 +29,31 @@ code {
 }
 
 
-.landing-content {
+.landing-content { 
+  /* align-items: baseline; */
+  display: flex;
   width: 60vw;
   height: 100vh;
+  justify-content: space-evenly;
 }
+
+.landing-content-mascot {
+  width: 10vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-grow: 2;
+
+}
+.landing-content-mascot img {
+  width: 100%;
+  margin-left: 5%;
+}
+
 
 .landing-content-box {
 
-  width: 50vw;
+  width: 40vw;
   height: 70vh;
   margin-left: 5vw;
   margin-top: 15vh;
@@ -314,7 +331,7 @@ code {
 
   overflow-y: scroll;
   list-style: none;
-  max-height: 77vh;
+  max-height: 70vh;
   min-height: fit-content;
   width: 80%;
   margin-left: 10%;
@@ -537,4 +554,18 @@ text-align: center;
   justify-content: space-evenly;
 
 
+}
+
+.landing-mascot {
+  width: 25%;
+}
+
+.sidebar-logo {
+  width: 30%;
+}
+.sidebar-logo-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -21,7 +21,7 @@ const SubjectSearchResultItem = ({ data, timeAgo, base }) => {
     const subject_age = timeAgo.format(now.getTime() - dif)
 
     // const [following, setFollowing] = useState(data.following)
-    console.log(data)
+
     return (
         <>
             <li className='search-result-item' id="subject-search-results">
@@ -29,7 +29,7 @@ const SubjectSearchResultItem = ({ data, timeAgo, base }) => {
                 <Box className='subject-search-results'>
                     <Typography
                         sx={{
-                            fontSize: '200%',
+                            fontSize: '150%',
                             cursor: "pointer",
                         }}
                         className='search-result-username'

@@ -86,3 +86,33 @@ export const destroyFriendShip = async (user_id) => {
     return data
 }
 
+export const getRecentSubjects = async (page=0) => {
+       
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/subjects/recent?page=${page}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+
+}
+export const getBestSubjects = async (page=0) => {
+       
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/subjects/popular?page=${page}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+
+}
+export const getWorstSubjects = async (page=0) => {
+       
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/subjects/unpopular?page=${page}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+
+}

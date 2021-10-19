@@ -26,7 +26,8 @@ const Feed = ({base}) => {
     // console.log(page)
 
     const handleScroll = (e) => {
-        if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) {
+
+        if (e.target.scrollHeight - e.target.scrollTop === (e.target.clientHeight)) {
             console.log('Fetching next page...')
             let nextPage = page+1
             getUserFeed(nextPage)

@@ -9,6 +9,8 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import ThumbsUpDownOutlinedIcon from '@mui/icons-material/ThumbsUpDownOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import SearchIcon from '@mui/icons-material/Search';
+import { Typography } from '@mui/material'
+import monster from '../../assets/MA.png'
 
 const Sidebar = ({ base }) => {
 
@@ -27,6 +29,10 @@ const Sidebar = ({ base }) => {
         <Paper className='sidebar' elevation={2}>
 
             {/* <Button onClick={handleLogout}>Logout</Button> */}
+            <Box className='sidebar-logo-container'>
+                <img src={monster} className='sidebar-logo'></img>
+                <Typography variant='h5'>Monster Audience</Typography>
+            </Box>
             <Button variant='contained' color='primary' id='feed' onClick={handleLinkClick}>
                 Feed
                 <FormatListBulletedIcon />
@@ -41,7 +47,7 @@ const Sidebar = ({ base }) => {
             </Button>
             <Button variant='contained' color='primary' id='reviews' onClick={handleLinkClick}>
                 Reviews
-                <ThumbsUpDownOutlinedIcon/>
+                <ThumbsUpDownOutlinedIcon />
             </Button>
             <Button variant='contained' color='primary' id='messages' onClick={handleLinkClick}>
                 Messages
