@@ -1,110 +1,127 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { TextField, Button } from '@mui/material'
-import { ActionCableProvider, ActionCable } from 'react-actioncable-provider'
-import Cable from './Cables';
+import Cable from 'actioncable'
+import CreateMessage from './CreateMessage'
+
 
 const ChatPage = () => {
 
-    const [messageState, setMessageState] = useState({
-        conversations: [],
-        activeConversation: null
-    })
-
-    const [conv, setConv] = useState()
 
 
-    useEffect(() => {
-        fetch(`http://localhost:3001/conversations`)
-            .then(res => res.json())
-            .then(conversations => setConv({ conversations }));
-    }, [])
-
-    const handleFormSubmit = (e) => {
-        e.preventDefault()
-
-
-    }
-
-    const currentUser = useSelector(state => state.session.currentUser.user)
-
-    const [newMessage, setNewMessage] = useState({
-        recipient_id: null,
-        sender_id: currentUser.id,
+    const [message, setMessage] = useState({
         content: ''
     })
 
-    const handleFormChange = (e) => {
+    const [connected, setConnected] = useState(false)
+    const [socket, setSocket] = useState({})
+    const [messageLog, setMessageLog] = useState([])
 
-        setNewMessage({
-            ...newMessage,
-            [e.target.id]: e.target.value
-        })
+    useEffect(() => {
+        if (!connected) {
+            createSocket();
+        }
+    }, [connected])
+
+    const submitMessage = (e) => {
+        e.preventDefault()
+        // console.log(message)
+        socket.create(message)
     }
 
-    const handleReceivedConversation = response => {
-        const { conversation } = response;
-        setMessageState({
-            conversations: [...this.state.conversations, conversation]
+    // const createSocket = () => {
+    //     let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    //     const chatConnection = cable.subscriptions.create({
+    //         channel: 'ChatChannel'
+    //     }, {
+    //         connected: () => { },
+    //         received: async (data) => {
+    //             const resp = await JSON.parse(data);
+    //             setChatLogs(resp.chat_messages)
+    //             // setChatLogs(chatLogCopy);
+    //         },
+    //         create: (chatContent) => {
+    //             chatConnection.perform('create', {
+    //                 content: chatContent
+    //             });
+    //         }
+    //     });
+    //     setChats(chatConnection)
+    //     setConnection(true);
+    // }
+
+    const createSocket = () => {
+
+        let cable = Cable.createConsumer('ws://localhost:3001/cable');
+        const chatsConnection = cable.subscriptions.create({
+            channel: 'ChatChannel'
+        }, {
+            connected: () => {},
+            received: async (data) => {
+                console.log('data:')
+                console.log(data);
+                const resp = await JSON.parse(data);
+                setMessageLog([...messageLog, resp])
+            },
+            create: function (chatContent) {
+                chatsConnection.perform('create', {
+                    content: chatContent
+                });
+            }
         });
-    };
 
-    const handleReceivedMessage = response => {
-        const { message } = response;
-        const conversations = [...messageState.conversations];
-        const conversation = conversations.find(
-            conversation => conversation.id === message.conversation_id
-        );
-        conversation.messages = [...conversation.messages, message];
-        setConv({ conversations });
-    };
+        setSocket(chatsConnection)
+        setConnected(true)
+    }
 
-
+    console.log(messageLog)
 
     return (
-        <ActionCableProvider url={'ws://localhost:3001/cable'}>
-            <div className="conversationsList">
-                <ActionCable
-                    channel={{ channel: 'ConversationsChannel' }}
-                    onReceived={handleReceivedConversation}
-                />
-                {messageState.conversations.length ? (
-                    <Cable
-                        conversations={conv}
-                        handleReceivedMessage={this.handleReceivedMessage}
-                    />
-                ) : null}
-                <h2>Conversations</h2>
-                {/* <ul>{mapConversations(conversations, this.handleClick)}</ul>
-                <NewConversationForm />
-                {activeConversation ? (
-                    <MessagesArea
-                        conversation={findActiveConversation(
-                            conversations,
-                            activeConversation
-                        )}
-                    />
-                ) : null} */}
-            </div>
 
+        <>
+            <div className="messageList">
+                <h1>Chat</h1>
+                <div className='chat-logs'>
 
+                </div>
+                <input
+                    type='text'
+                    placeholder='Enter your message...'
+                    onChange={(e) => { setMessage(e.target.value) }}
+                    className='chat-input' />
+                <button className='send' type='submit' onClick={submitMessage}>
+                    Send
+                </button>
 
-
-
-
-            <div className='chatbox-container'>
-                <form onSubmit={handleFormSubmit} onChange={handleFormChange} className='chatbox'>
-
-                    <TextField value={newMessage.recipient_id} type='number' label='Recipient ID' id='recipient_id'></TextField>
-                    <TextField value={newMessage.content} type='text' rows={4} multiline label='Message' id='content'></TextField>
-                    <Button variant='contained' type='submit'>Send Message</Button>
-
-
-                </form>
 
             </div>
-        </ActionCableProvider>
+            {/* <CreateMessage /> */}
+        </>
+
     )
 }
 
 export default ChatPage
+
+
+const createSocket = (setSocket, messageLog, setMessageLog) => {
+
+    let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    let chats = cable.subscriptions.create({
+        channel: 'ChatChannel'
+    }, {
+        connected: () => { },
+        received: (data) => {
+            console.log(data);
+            setMessageLog([...messageLog, data])
+        },
+        create: function (chatContent) {
+            this.perform('create', {
+                content: chatContent
+            });
+        }
+    });
+
+    setSocket(chats)
+}
+
