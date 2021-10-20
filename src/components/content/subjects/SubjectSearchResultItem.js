@@ -22,6 +22,9 @@ const SubjectSearchResultItem = ({ data, timeAgo, base, history }) => {
     const handleUserClick = () => {
         history.push(`${base}/subjects/${data.id}`)
     }
+    const handleUsernameClick = () => {
+        history.push(`${base}/users/${data.user_id}`)
+    }
 
     return (
         <>
@@ -43,8 +46,8 @@ const SubjectSearchResultItem = ({ data, timeAgo, base, history }) => {
                 <Divider orientation='vertical' flexItem variant='middle' />
                 <Box sx={{width: "60%", display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                     <Typography>{data.reviews.length} Review(s)</Typography>
-                    <Typography>{data.avg_rating} Average</Typography>
-                    <Typography>
+                    <Typography>{data.avg_rating ? parseFloat(data.avg_rating).toFixed(2) : "N/A"} Average</Typography>
+                    <Typography onClick={handleUsernameClick} sx={{cursor: 'pointer'}}>
                         Posted {subject_age}, by {data.username}
                     </Typography>
                     {/* <Typography>Registered {account_age}</Typography> */}

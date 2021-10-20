@@ -30,7 +30,7 @@ const HomePage = () => {
 
     return (
         <>
-            <Sidebar base={base} />
+            <Sidebar base={base} session={session} />
             <Paper className='content-stage' elevation={2}>
                 <Switch>
                     <Route exact path={`${base}/users`}>
@@ -52,7 +52,7 @@ const HomePage = () => {
                         <UserDetailsPage base={base} />
                     </Route>
                     <Route exact path={`${base}/profile`}>
-                        <Profile session={session} />
+                        <Profile session={session} base={base} />
                     </Route>
                     <Route path={`${base}/feed`}>
                         <Feed base={base} />

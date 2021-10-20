@@ -36,6 +36,10 @@ const FeedItem = ({ data, feedIndex, user, base }) => {
     const handleUsernameClick = () => {
         history.push(`${base}/users/${data.user_id}`)
     }
+    
+    const handleSubjectTitleClick = () => {
+        history.push(`${base}/subjects/${data.id}`)
+    }
 
     return (
         <li className='feed-item'>
@@ -44,7 +48,7 @@ const FeedItem = ({ data, feedIndex, user, base }) => {
                 sx={{
                     marginTop: '1%',
                     height: 'fit-content',
-                    border: '3px solid #1481BA',
+                    border: '2px solid #1481BA',
                     borderRadius: '4px'
 
 
@@ -71,7 +75,7 @@ const FeedItem = ({ data, feedIndex, user, base }) => {
                         }} />
                         </div>
                         <div className='subject-title-container'>
-                            <Typography variant='h3'>{data.name}</Typography>
+                            <Typography variant='h3' sx={{cursor: 'pointer'}} onClick={handleSubjectTitleClick}>{data.name}</Typography>
                             <Typography variant='subheader'>{data.description}</Typography>
                         </div>
                     </div>

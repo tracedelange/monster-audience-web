@@ -8,11 +8,12 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en.json'
 import {capitalize} from '../../globals'
 
+
 TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 
-const Profile = ({ session }) => {
+const Profile = ({ session, base }) => {
 
     const created_at = Date.parse(session.currentUser.user.created_at)
     const now = new Date() 

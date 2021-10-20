@@ -63,6 +63,7 @@ const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendRe
                                     width: '80%',
                                     left: "5%",
                                 }}
+                                InputProps={{sx:{marginTop: '2%', marginBottom:'2%'}}}
                                 name='content'
                                 multiline
                                 rows={3}
@@ -85,6 +86,7 @@ const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendRe
                     </div>
                 </li>
             </form>
+                    <Divider />
         </>
 
     )

@@ -8,8 +8,10 @@ import { Typography } from '@mui/material'
 import { Divider } from '@mui/material'
 import { Button } from '@mui/material'
 import { createFriendShip, destroyFriendShip } from '../../../requests'
-
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserFeed, addNextUserPage } from '../../../actions/userFeeds'
+import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom'
 
 const timeAgo = new TimeAgo('en-US')
 
@@ -18,18 +20,25 @@ const feed_sort = (a, b) => {
 }
 
 
-const UserDetailsPage = ({base}) => {
+const UserDetailsPage = ({ base }) => {
 
-    const { id } = useParams()
-    const [feed, setFeed] = useState()
-    const [feedArray, setFeedArray] = useState([])
-    const [page, setPage] = useState(0)
+    const { id } = useParams();
+    // const [feed, setFeed] = useState();
+    const [feedArray, setFeedArray] = useState([]);
+    const history = useHistory();
     const [userDetails, setUserDetails] = useState({
         created_at: 0
     })
 
     const [dataLoaded, setDataLoaded] = useState(false)
     const [following, setFollowing] = useState(false)
+
+    const dispatch = useDispatch();
+    const feed = useSelector(state => state.userFeed.userFeed)
+    const page = useSelector(state => state.userFeed.userPage)
+    const loggedUser = useSelector(state => state.session.currentUser.user)
+
+
 
 
     //Make a backend call to get a user-specific feed including user data.
@@ -41,7 +50,8 @@ const UserDetailsPage = ({base}) => {
                         ...resp.reviews,
                         ...resp.subjects
                     ]
-                    setFeed(feed.sort(feed_sort))
+                    let sortedFeed = feed.sort(feed_sort)
+                    dispatch(setUserFeed(sortedFeed))
 
                     setUserDetails(resp.userDetails)
                     setFollowing(resp.userDetails.following)
@@ -51,15 +61,15 @@ const UserDetailsPage = ({base}) => {
     }, [id])
 
 
+    console.log(userDetails.follows)
 
 
     useEffect(() => {
-        if (feed) {
-            setFeedArray(
-                feed.map(item => <UserDetailsSubjectFeedItem base={base} timeAgo={timeAgo} key={item.key} data={item} userData={userDetails} />)
-            )
+        if (feed.length > 0) {
+            let array = feed.map(item => <UserDetailsSubjectFeedItem base={base} timeAgo={timeAgo} key={uuidv4()} data={item} userData={userDetails} />)
+            setFeedArray(array)
         }
-    }, [feed, id])
+    }, [feed])
 
     const handleFriendshipClick = (e, user_id) => {
         switch (e.target.id) {
@@ -67,7 +77,7 @@ const UserDetailsPage = ({base}) => {
                 console.log('createFriendship')
                 createFriendShip(user_id)
                     .then(resp => {
-                        if (resp.following.id){
+                        if (resp.following.id) {
                             setFollowing(true)
                         }
                     })
@@ -76,7 +86,7 @@ const UserDetailsPage = ({base}) => {
                 console.log('destroyFriendship')
                 destroyFriendShip(user_id)
                     .then(resp => {
-                        if (resp.ok){
+                        if (resp.ok) {
                             setFollowing(false)
                         }
                     })
@@ -89,7 +99,24 @@ const UserDetailsPage = ({base}) => {
     const dif = now.getTime() - created_at
     const account_age = timeAgo.format(now.getTime() - dif)
 
-    
+    const handleReviewListScroll = (e) => {
+        if (e.target.scrollHeight - e.target.scrollTop === (e.target.clientHeight)) {
+            console.log('Fetching next page...')
+            let nextPage = page + 1
+            console.log(nextPage)
+            getSpecificUserFeed(id, nextPage)
+                .then(resp => {
+                    if (resp.ok) {
+                        let feed = [
+                            ...resp.reviews,
+                            ...resp.subjects
+                        ]
+                        let sortedFeed = feed.sort(feed_sort)
+                        dispatch(addNextUserPage(sortedFeed))
+                    }
+                })
+        }
+    }
 
 
     return (
@@ -98,8 +125,19 @@ const UserDetailsPage = ({base}) => {
                 <>
                     <div className='user-details-container'>
                         <div className='user-details-header'>
-                            <Typography variant='h3' sx={{ fontWeight: 500, fontSize: '64px' }}>{userDetails.username}</Typography>
+                            <Typography variant='h3' sx={{ fontWeight: 500, fontSize: '54px' }}>{userDetails.username}</Typography>
                             <Typography variant='subheader' sx={{ fontWeight: 500 }}>Joined {account_age}</Typography>
+
+                            {
+                                userDetails.id === loggedUser.id ?
+                                    <Typography variant='subheader' sx={{ fontWeight: 500, opacity: '0.7' }}>You</Typography>
+                                    :
+                                    userDetails.follows ?
+                                        <Typography variant='subheader' sx={{ fontWeight: 500, opacity: '0.7' }}>Follows you</Typography>
+                                        :
+                                        null
+                            }
+
                         </div>
                         <Divider variant='middle' flexItem orientation='vertical' />
                         <div className='user-details-stats'>
@@ -107,33 +145,44 @@ const UserDetailsPage = ({base}) => {
                             <Typography variant='subheader'>{userDetails.social_counts.subjects} Subjects posted, {userDetails.social_counts.reviews} subjects reviewed</Typography>
                             <Typography variant='subheader'>{parseFloat(userDetails.social_counts.avg_rating).toFixed(2)} Average Rating</Typography>
                         </div>
-                        <Button
-                        variant='contained'
-                        sx={{width: '10%'}}
-                        onClick={((e) => { handleFriendshipClick(e, userDetails.id) })}
-                        id={
-                            following ?
-                                "unfollow"
-                                :
-                                "follow"
+                        {userDetails.id === loggedUser.id ?
+                                <Button
+                                    onClick={()=>{history.push(`${base}/profile`)}}
+                                    variant='contained'
+                                    sx={{ width: '20%', color: 'white' }}
+                                >
+                                    Profile Details
+                                </Button>
+                            :
+                            <Button
+                                variant='contained'
+                                sx={{ width: '10%' }}
+                                onClick={((e) => { handleFriendshipClick(e, userDetails.id) })}
+                                id={
+                                    following ?
+                                        "unfollow"
+                                        :
+                                        "follow"
+                                }
+                                color={
+                                    following ?
+                                        "secondary"
+                                        :
+                                        "primary"
+                                }
+                                sx={{ color: 'white' }}>
+                                {
+                                    following ?
+                                        "Unfollow"
+                                        :
+                                        "Follow"
+                                }
+                            </Button>
                         }
-                        color={
-                            following ?
-                                "secondary"
-                                :
-                                "primary"
-                        }
-                        sx={{ color: 'white' }}>
-                        {
-                            following ?
-                                "Unfollow"
-                                :
-                                "Follow"
-                        }
-                    </Button>
+
                     </div>
                     <div className='user-details-feed-container'>
-                        <ul className='user-details-feed-container-list'>
+                        <ul className='user-details-feed-container-list' onScroll={handleReviewListScroll}>
                             {feedArray}
                         </ul>
                     </div>

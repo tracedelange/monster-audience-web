@@ -340,7 +340,8 @@ code {
 }
 .search-result-item {
 
-  height: 12vh;
+  min-height: 12vh;
+  max-height: fit-content;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -438,7 +439,8 @@ text-align: center;
 
 .user-details-feed-item {
   width: 100%;
-  height: fit-content;
+  /* min-height: 5vh; */
+  max-height: fit-content;
 
 }
 .user-details-feed-item p{
@@ -446,7 +448,9 @@ text-align: center;
 }
 
 .user-details-feed-subject-container {
-  height: 10vh;
+  min-height: 10vh;
+  max-height: fit-content;
+  padding: 1%;
   background-color: #e3f9ff;
   display: flex;
   flex-direction: row;
@@ -530,6 +534,10 @@ text-align: center;
 .subject-search-results {
   width: 50%;
   flex-grow: 2;
+
+  min-height: 10vh;
+  max-height: fit-content;
+
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -586,7 +594,8 @@ text-align: center;
   padding-bottom: 1%;
   margin-bottom: 0%;
 
-  height: 15vh;
+  min-height: 15vh;
+  max-height: fit-content;
 
   background-color: #e3f9ff;
 
@@ -597,8 +606,9 @@ text-align: center;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: baseline;
   align-items: center;
+  text-align: center;
 
 }
 .subject-details-container-last{
@@ -631,6 +641,8 @@ text-align: center;
   padding: 0%;
   width: 100%;
 
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 .subject-details-new-review {

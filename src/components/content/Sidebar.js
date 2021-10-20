@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Typography } from '@mui/material'
 import monster from '../../assets/MA.png'
 
-const Sidebar = ({ base }) => {
+const Sidebar = ({ base, session }) => {
 
 
 
@@ -49,7 +49,7 @@ const Sidebar = ({ base }) => {
                 Messages
                 <MessageOutlinedIcon />
             </Button>
-            <Button variant='contained' color='primary' id='profile' onClick={handleLinkClick}>
+            <Button variant='contained' color='primary' id='profile' onClick={()=>{history.push(`${base}/users/${session.currentUser.user.id}`)}}>
                 Profile
                 <AccountBoxOutlinedIcon />
             </Button>

@@ -32,14 +32,17 @@ const UserDetailsSubjectFeeditem = ({ data, timeAgo, base }) => {
     
     useEffect(() => {
         if (Array.isArray(reviewData)) {
-            setReviewArray(reviewData.map(item => <UserDetailsReviewFeedItem timeAgo={timeAgo}  key={item.id} data={item} />))
+            setReviewArray(reviewData.map(item => <UserDetailsReviewFeedItem base={base} timeAgo={timeAgo}  key={item.id} data={item} />))
         } else {
-            setReviewArray([<UserDetailsReviewFeedItem key={reviewData.id} timeAgo={timeAgo} data={reviewData} />])
+            setReviewArray([<UserDetailsReviewFeedItem key={reviewData.id} base={base} timeAgo={timeAgo} data={reviewData} />])
         }
     }, [reviewData])
 
     const handleUsernameClick = () => {
         history.push(`${base}/users/${subjectData.user_id}`)
+    }
+    const handleSubjectClick = () => {
+        history.push(`${base}/subjects/${subjectData.id}`)
     }
     
     const created_at = Date.parse(subjectAge)
@@ -58,7 +61,7 @@ const UserDetailsSubjectFeeditem = ({ data, timeAgo, base }) => {
                 },
             }}>
                 <div className='user-details-subject-content-left'>
-                    <Typography variant='h3'>{subjectData.name}</Typography>
+                    <Typography variant='h3' sx={{cursor:'pointer'}} onClick={handleSubjectClick} >{subjectData.name}</Typography>
                     <Typography variant='subheader'>{subjectData.description}</Typography>
                 </div>
                 <Divider orientation='vertical' flexItem />

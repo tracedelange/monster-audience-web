@@ -1,14 +1,22 @@
 import React from 'react'
 import { Divider } from '@mui/material'
 import Typography from '@mui/material/Typography'
+import { useHistory } from 'react-router-dom'
 
-const UserDetailsReviewFeedItem = ({ data, timeAgo }) => {
+const UserDetailsReviewFeedItem = ({ data, timeAgo, base }) => {
 
     const created_at = Date.parse(data.created_at)
     const now = new Date()
     const dif = now.getTime() - created_at
 
     const review_age = timeAgo.format(now.getTime() - dif)
+
+    const history = useHistory()
+
+    const handleUserClick = () => {
+        history.push(`${base}/users/${data.user_id}`)
+    }
+
 
     return (
         <>
@@ -20,7 +28,7 @@ const UserDetailsReviewFeedItem = ({ data, timeAgo }) => {
                         </h2>
                     </div>
                     <div className='user-details-review-item-user'>
-                        <Typography>
+                        <Typography sx={{cursor: 'pointer'}} onClick={handleUserClick}>
                             Rated {review_age}, by {data.username}
                         </Typography>
                     </div>
