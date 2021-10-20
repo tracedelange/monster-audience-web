@@ -8,7 +8,7 @@ import TimeAgo from 'javascript-time-ago'
 
 const timeAgo = new TimeAgo('en-US')
 
-const UsersPage = ({base}) => {
+const UsersPage = ({ base }) => {
 
 
 
@@ -40,16 +40,16 @@ const UsersPage = ({base}) => {
             <div className='search-results-stats'>
 
             </div>
-            <ul className='search-result-list'>
-                {searchResultsArray.length > 0 ?
-                    searchResultsArray
+            {searchResultsArray.length > 0 ?
+                <ul className='search-result-list'>
+                    {searchResultsArray}
+                </ul>
+                :
+                firstQuery ?
+                    <NoResultsFound />
                     :
-                    firstQuery ?
-                        <NoResultsFound />
-                        :
-                        null
-                }
-            </ul>
+                    null
+            }
         </div>
     )
 }

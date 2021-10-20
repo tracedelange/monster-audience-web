@@ -43,6 +43,18 @@ export const postReview = async (newReview) => {
 
 }
 
+export const postSubject = async (newSubject) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "POST"
+    const body = newSubject
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/subjects`, { method: method, headers: headers, body: JSON.stringify(body) })
+    const data = await response.json()
+    return data
+
+}
+
 
 export const deleteReview = async (review_id) => {
 

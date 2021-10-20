@@ -62,8 +62,8 @@ const SubjectsPage = ({ base }) => {
 
     const handleOptionsClick = (e) => {
 
-        console.log(feedType)
-        console.log(e.target.id)
+        // console.log(feedType)
+        // console.log(e.target.id)
 
         if (feedType !== e.target.id) {
 
@@ -85,6 +85,9 @@ const SubjectsPage = ({ base }) => {
                         .then(data => {
                             dispatch(setSubjects(data, 'recent'))
                         })
+                    break;
+                case 'create':
+                    history.push(`${base}/subject/create`)
                     break;
                 default:
                     break;

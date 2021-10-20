@@ -10,6 +10,7 @@ import UsersPage from './users/UsersPage'
 import SubjectsPage from './subjects/SubjectsPage'
 import UserDetailsPage from './users/UserDetailsPage'
 import SubjectDetailsPage from './subjects/SubjectDetailsPage'
+import SubmitSubjectPage from './subjects/SubmitSubjectPage'
 
 const HomePage = () => {
 
@@ -37,6 +38,9 @@ const HomePage = () => {
                     </Route>
                     <Route exact path={`${base}/subjects`}>
                         <SubjectsPage base={base} />
+                    </Route>
+                    <Route exact path={`${base}/subject/create`}>
+                        <SubmitSubjectPage base={base} />
                     </Route>
                     <Route exact path={`${base}/subjects/:id`}>
                         <SubjectDetailsPage base={base} />
