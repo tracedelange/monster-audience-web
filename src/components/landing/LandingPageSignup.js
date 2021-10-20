@@ -31,7 +31,7 @@ const LandingPageSignup = ({ handleSignupClick, updateUserData }) => {
 
     const handleSignupSubmit = (e) => {
         e.preventDefault()
-        console.log(signupObject)
+        // console.log(signupObject)
         submitSignup(signupObject)
             .then((data) => {
                 if (data.errors){
