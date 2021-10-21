@@ -714,7 +714,7 @@ text-align: center;
   width: 100%;
   /* min-height: fit-content; */
   overflow-y: scroll;
-  max-height: 60vh;
+  height: 60vh;
   list-style: none;
   border: 2px solid #1481BA;
 }
@@ -730,4 +730,41 @@ text-align: center;
 .new-message-form {
   display: flex;
   flex-direction: row;
+}
+
+.chat-logs {
+
+  display: flex;
+  flex-direction: column;
+  background-color: #e3f9ff;
+
+}
+
+.chat-item-sent {
+  display: flex;
+  width: 95%;
+  margin-right: 5%;
+  flex-direction: row-reverse;
+  /* background-color: #65aad0; */
+  text-align: right;
+}
+.chat-item-sent span{
+
+  /* border-radius: 5%; */
+  /* color: white; */
+  border: 2px solid #1481BA
+  
+  
+}
+
+.chat-item-received {
+  width: 95%;
+  display: flex;
+  justify-items: flex-end;
+  /* text-align: left; */
+  margin-left: 5%;
+}
+
+.chat-item-received span {
+  border: 2px solid #B3EAF9
 }

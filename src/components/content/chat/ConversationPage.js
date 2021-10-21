@@ -3,7 +3,7 @@ import { Button } from '@mui/material'
 import Cable from 'actioncable'
 import { loadChatLogs } from '../../../requests'
 import { TextField } from '@mui/material'
-
+import ChatLogItem from './ChatLogItem'
 
 const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
 
@@ -27,9 +27,7 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
     useEffect(() => {
         if (chatLogs) {
             console.log(chatLogs)
-            let array = chatLogs.map((item) => {
-                return <li key={item.id}>{item.content} - {item.author ? item.author.username : "n/a"}</li>
-            })
+            let array = chatLogs.map((item) => <ChatLogItem key={item.id} data={item} currentUser={currentUser} /> )
             setChatLogsArray(array)
         }
     }, [chatLogs])
@@ -77,7 +75,9 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
 
     return (
         <div className='conversation-container'>
+
             <Button sx={{color:'white'}} variant='contained' onClick={handleBack}>Conversations</Button>
+
 
             <ul className='chat-logs'>
                 {chatLogsArray}
