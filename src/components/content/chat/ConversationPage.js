@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Button } from '@mui/material'
 import Cable from 'actioncable'
 import { loadChatLogs } from '../../../requests'
+import { TextField } from '@mui/material'
 
-const ConversationPage = ({ handleBack, conversationId }) => {
+
+const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
 
 
     const [chatLogs, setChatLogs] = useState([])
     const [chatLogsArray, setChatLogsArray] = useState([])
     const [socket, setSocket] = useState({})
     const [connected, setConnected] = useState(false)
-    const [message, setMessage] = useState({
-        content: ''
-    })
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
         if (!connected) {
@@ -26,8 +26,9 @@ const ConversationPage = ({ handleBack, conversationId }) => {
 
     useEffect(() => {
         if (chatLogs) {
+            console.log(chatLogs)
             let array = chatLogs.map((item) => {
-                return <li key={item.id}>{item.content}</li>
+                return <li key={item.id}>{item.content} - {item.author ? item.author.username : "n/a"}</li>
             })
             setChatLogsArray(array)
         }
@@ -37,8 +38,13 @@ const ConversationPage = ({ handleBack, conversationId }) => {
     const submitMessage = (e) => {
         e.preventDefault()
         socket.create(message)
-        setMessage({content: ''})
+        setMessage('')
 
+    }
+
+    const handleInputChange = (e) => {
+        console.log(e.target.value)
+        setMessage(e.target.value)
     }
 
     const createSocket = () => {
@@ -46,7 +52,8 @@ const ConversationPage = ({ handleBack, conversationId }) => {
         let cable = Cable.createConsumer('ws://localhost:3001/cable');
         const chatsConnection = cable.subscriptions.create({
             channel: 'ChatChannel',
-            id: conversationId
+            id: conversationId,
+            user_id: currentUser.id
         }, {
             connected: () => {
                 console.log(`connected to channel ${conversationId}`)
@@ -69,22 +76,31 @@ const ConversationPage = ({ handleBack, conversationId }) => {
 
 
     return (
-        <div>
-            <Button variant='contained' onClick={handleBack}>Conversations</Button>
+        <div className='conversation-container'>
+            <Button sx={{color:'white'}} variant='contained' onClick={handleBack}>Conversations</Button>
 
             <ul className='chat-logs'>
                 {chatLogsArray}
             </ul>
-            <form>
-                <input
+            <form className='new-message-form'>
+                <TextField
                     type='text'
-                    placeholder='Enter your message...'
-                    value={message.content}
-                    onChange={(e) => { setMessage(e.target.value) }}
+                    label='Message...'
+                    value={message}
+                    fullWidth
+                    // multiline
+                    // rows={1}
+                    onChange={handleInputChange}
                     className='chat-input' />
-                <button className='send' type='submit' onClick={submitMessage}>
+
+                <Button
+                sx={{color:'white'}}
+                variant='contained'
+                className='send'
+                type='submit'
+                onClick={submitMessage}>
                     Send
-                </button>
+                </Button>
             </form>
 
         </div>

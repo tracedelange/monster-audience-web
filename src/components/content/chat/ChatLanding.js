@@ -35,7 +35,7 @@ const ChatLanding = () => {
     return (
         <div>
             {chosenConversation ?
-                <ConversationPage handleBack={() => setChosenConversation(null)} conversationId={chosenConversation} />
+                <ConversationPage currentUser={currentUser} handleBack={() => setChosenConversation(null)} conversationId={chosenConversation} />
                 :
 
                 conversationsLoaded ?
