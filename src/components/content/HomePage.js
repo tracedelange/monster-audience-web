@@ -20,12 +20,12 @@ const HomePage = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        getUserFeed()
-        .then(data => {
-            dispatch({ type: "SET_FEED", payload: data})
-        })
-    },[])
+    // useEffect(()=>{
+    //     getUserFeed()
+    //     .then(data => {
+    //         dispatch({ type: "SET_FEED", payload: data})
+    //     })
+    // },[])
 
 
     return (

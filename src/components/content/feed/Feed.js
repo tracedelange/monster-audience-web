@@ -5,6 +5,7 @@ import FeedItem from './FeedItem';
 import { useDispatch } from 'react-redux';
 import { getUserFeed } from '../../../requests'
 import { addNextPage } from '../../../actions/feed';
+import EmptyFeed from './EmptyFeed';
 
 
 const Feed = ({ base }) => {
@@ -15,6 +16,13 @@ const Feed = ({ base }) => {
     const session = useSelector(state => state.session);
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        getUserFeed()
+            .then(data => {
+                dispatch({ type: "SET_FEED", payload: data })
+            })
+    }, [])
 
     useEffect(() => {
         if (feed.length > 0) {
@@ -30,7 +38,7 @@ const Feed = ({ base }) => {
             let nextPage = page + 1
             getUserFeed(nextPage)
                 .then(data => {
-                    if (data){
+                    if (data) {
                         dispatch(addNextPage(data, nextPage))
                     }
                 })
@@ -44,13 +52,7 @@ const Feed = ({ base }) => {
                 {feedArray ?
                     feedArray
                     :
-                    <ul className='empty-feed'>
-                        <Typography>Your feed is empty!</Typography>
-                        <Typography>Suggestions: </Typography>
-                        <Typography>Follow some users</Typography>
-                        <Typography>Review an existing subject</Typography>
-                        <Typography>Create a Subject to review</Typography>
-                    </ul>
+                    <EmptyFeed base={base} />
                 }
             </ul>
         </div>
