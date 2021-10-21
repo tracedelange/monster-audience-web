@@ -9,19 +9,20 @@ const ChatPage = () => {
 
 
 
-    const [message, setMessage] = useState({
-        content: ''
-    })
-
+    
     const [connected, setConnected] = useState(false)
     const [socket, setSocket] = useState({})
     const [messageLog, setMessageLog] = useState([])
-
+    
     useEffect(() => {
         if (!connected) {
             createSocket();
         }
     }, [connected])
+    
+    const [message, setMessage] = useState({
+        content: ''
+    })
 
     const submitMessage = (e) => {
         e.preventDefault()
@@ -58,10 +59,9 @@ const ChatPage = () => {
         }, {
             connected: () => {},
             received: async (data) => {
-                console.log('data:')
-                console.log(data);
                 const resp = await JSON.parse(data);
-                setMessageLog([...messageLog, resp])
+                // console.log(resp)
+                setMessageLog(resp)
             },
             create: function (chatContent) {
                 chatsConnection.perform('create', {
@@ -104,24 +104,24 @@ const ChatPage = () => {
 export default ChatPage
 
 
-const createSocket = (setSocket, messageLog, setMessageLog) => {
+// const createSocket = (setSocket, messageLog, setMessageLog) => {
 
-    let cable = Cable.createConsumer('ws://localhost:3001/cable');
-    let chats = cable.subscriptions.create({
-        channel: 'ChatChannel'
-    }, {
-        connected: () => { },
-        received: (data) => {
-            console.log(data);
-            setMessageLog([...messageLog, data])
-        },
-        create: function (chatContent) {
-            this.perform('create', {
-                content: chatContent
-            });
-        }
-    });
+//     let cable = Cable.createConsumer('ws://localhost:3001/cable');
+//     let chats = cable.subscriptions.create({
+//         channel: 'ChatChannel'
+//     }, {
+//         connected: () => { },
+//         received: (data) => {
+//             console.log(data);
+//             setMessageLog([...messageLog, data])
+//         },
+//         create: function (chatContent) {
+//             this.perform('create', {
+//                 content: chatContent
+//             });
+//         }
+//     });
 
-    setSocket(chats)
-}
+//     setSocket(chats)
+// }
 

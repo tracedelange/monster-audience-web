@@ -11,6 +11,7 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import { Typography } from '@mui/material'
 import monster from '../../assets/MA.png'
+import monsterAudience from '../../assets/MAT.png'
 
 const Sidebar = ({ base, session }) => {
 
@@ -31,7 +32,8 @@ const Sidebar = ({ base, session }) => {
             {/* <Button onClick={handleLogout}>Logout</Button> */}
             <Box className='sidebar-logo-container'>
                 <img src={monster} className='sidebar-logo'></img>
-                <Typography variant='h5'>Monster Audience</Typography>
+                <img src={monsterAudience} className='sidebar-logo-text'></img>
+                {/* <Typography variant='h5'>Monster Audience</Typography> */}
             </Box>
             <Button variant='contained' color='primary' id='feed' onClick={handleLinkClick}>
                 Feed
