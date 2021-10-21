@@ -3,6 +3,9 @@ import { getConversations } from '../../../requests'
 import ConversationListItem from './ConversationListItem'
 import { useSelector } from 'react-redux'
 import ConversationPage from './ConversationPage'
+import { Typography } from '@mui/material'
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import NewChatForm from './NewChatForm'
 
 const ChatLanding = () => {
 
@@ -10,6 +13,8 @@ const ChatLanding = () => {
     const [conversationsArray, setConversationsArray] = useState([])
     const [conversationsLoaded, setConversationsLoaded] = useState(false)
     const currentUser = useSelector(state => state.session.currentUser.user)
+
+    const [newChatFormOpen, setNewChatFormOpen] = useState(false)
 
     const [chosenConversation, setChosenConversation] = useState(null)
 
@@ -34,14 +39,22 @@ const ChatLanding = () => {
 
     return (
         <div>
+
             {chosenConversation ?
                 <ConversationPage currentUser={currentUser} handleBack={() => setChosenConversation(null)} conversationId={chosenConversation} />
                 :
 
                 conversationsLoaded ?
-                    <ul>
-                        {conversationsArray}
-                    </ul>
+                    <>
+                        <div className='messages-header-container'>
+                            <Typography variant='h3'>User Messages</Typography>
+                            <AddBoxIcon onClick={()=>{setNewChatFormOpen(!newChatFormOpen)}} />
+                            <NewChatForm open={newChatFormOpen} />
+                        </div>
+                        <ul className='conversation-list'>
+                            {conversationsArray}
+                        </ul>
+                    </>
                     :
                     "Loading..."
             }
