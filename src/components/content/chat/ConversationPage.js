@@ -4,6 +4,7 @@ import Cable from 'actioncable'
 import { loadChatLogs } from '../../../requests'
 import { TextField } from '@mui/material'
 import ChatLogItem from './ChatLogItem'
+import { baseURL } from '../../../globals'
 
 const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
 
@@ -45,7 +46,7 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
 
     const createSocket = () => {
 
-        let cable = Cable.createConsumer('ws://localhost:3001/cable');
+        let cable = Cable.createConsumer(`ws://${baseURL}/cable`);
         const chatsConnection = cable.subscriptions.create({
             channel: 'ChatChannel',
             id: conversationId,
