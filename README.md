@@ -1,4 +1,4 @@
-# Monster Audience
+# Monster Audience - Under Development
 
 A social platform based around reviewing and rating user submitted subjects like movies, books, places and experiences.
 
@@ -8,7 +8,8 @@ A fullstack application developed with Ruby on Rails and React. The application 
 
 ## Visit
 
-You can visit the site <a href='https://monster-audience-web.herokuapp.com/landing'>here</a> 
+Please keep in mind that Monster Audience is a work in progress and primarily populated with faux data at present. That being said, you can visit the site and register <a href='https://monster-audience-web.herokuapp.com/landing'>here</a>
+
 
 ## Authors
 
