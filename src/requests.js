@@ -135,3 +135,45 @@ export const getWorstSubjects = async (page=0) => {
     return data
 
 }
+
+
+export const getConversations = async () => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/conversations`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+}
+
+
+export const loadChatLogs = async (conversationId) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/conversations/${conversationId}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+}
+
+export const getFriendsList = async () => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "GET"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/friendships`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+}
+
+export const submitNewChat = async (recipient_id) => {
+
+    const token = localStorage.getItem('jwt')
+    const method = "POST"
+    const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+    const response = await fetch(`${baseURL}/conversations?recipient_id=${recipient_id}`, { method: method, headers: headers })
+    const data = await response.json()
+    return data
+}

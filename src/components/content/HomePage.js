@@ -11,6 +11,7 @@ import SubjectsPage from './subjects/SubjectsPage'
 import UserDetailsPage from './users/UserDetailsPage'
 import SubjectDetailsPage from './subjects/SubjectDetailsPage'
 import SubmitSubjectPage from './subjects/SubmitSubjectPage'
+import ChatLanding from './chat/ChatLanding'
 
 const HomePage = () => {
 
@@ -46,7 +47,7 @@ const HomePage = () => {
                         <SubjectDetailsPage base={base} />
                     </Route>
                     <Route exact path={`${base}/messages`}>
-                        <Feed />
+                        <ChatLanding />
                     </Route>
                     <Route path={`${base}/users/:id`}>
                         <UserDetailsPage base={base} />

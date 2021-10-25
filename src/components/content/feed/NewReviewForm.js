@@ -9,9 +9,9 @@ import { useDispatch } from 'react-redux';
 import { addReviewToFeed } from '../../../actions/feed'
 
 
-const NewReviewForm = ({ closeForm, subjectId }) => {
+const NewReviewForm = ({ closeForm, subjectId, feedIndex }) => {
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const [newReviewObject, setNewReviewObject] = useState({
         rating: 0,
@@ -22,19 +22,19 @@ const NewReviewForm = ({ closeForm, subjectId }) => {
     const handleReviewSubmission = (e) => {
         e.preventDefault()
         // console.log(newReviewObject)
-        // console.log()
-        // postReview(newReviewObject)
-        //     .then(data => {
-        //         if (data.errors) {
-        //             console.log("We've got a problem!")
-        //             console.log(data.errors)
-        //         } else {
-        //             //dispatch to add review to feed? 
-        //             dispatch(addReviewToFeed(data, feedIndex))
-        //             closeForm()
 
-        //         }
-        //     })
+        postReview(newReviewObject)
+            .then(data => {
+                if (data.errors) {
+                    console.log("We've got a problem!")
+                    console.log(data.errors)
+                } else {
+                    //dispatch to add review to feed? 
+                    dispatch(addReviewToFeed(data, feedIndex))
+                    closeForm()
+
+                }
+            })
 
     }
 
@@ -54,7 +54,7 @@ const NewReviewForm = ({ closeForm, subjectId }) => {
                     <div className='infoBox'>
 
                         <h2 className='rating'>{(newReviewObject.rating)}/10</h2>
-                        <Rating sx={{ fontSize: '1vw', }} name="rating" value={newReviewObject.rating} max={10} onChange={handleInputChange} />
+                        <Rating sx={{ fontSize: '1vw', }} name="rating" value={parseInt(newReviewObject.rating)} max={10} onChange={handleInputChange} />
 
                         {/* <Typography sx={{ paddingTop: "2%" }}>Rated {review_age}, by {data.username}</Typography> */}
                     </div>

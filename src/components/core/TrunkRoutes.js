@@ -25,7 +25,6 @@ const TrunkRoutes = () => {
         }
     },[])
 
-    console.log(session)
 
     return (
         <Router>
