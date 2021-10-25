@@ -763,3 +763,27 @@ code {
   margin-left: 2%;
   font-size: 3vmin;
 }
+
+.username-convo-list {
+  list-style: none;
+  height: 30vh;
+  overflow-y: scroll;
+  /* background-color: #e3f9ff; */
+}
+.new-convo-user-item {
+  cursor: pointer;
+  text-align: left;
+  font-size: 5vmin;
+  border: 1px solid rgba(0,0,0,.2);
+  /* margin: 4px; */
+  padding: 4px;
+}
+
+.new-convo-user-item:hover {
+  /* background-color: #e3f9ff; */
+  opacity: 0.8;
+}
+
+.new-chat-dialog {
+  transition: all .2s ease-in;
+}

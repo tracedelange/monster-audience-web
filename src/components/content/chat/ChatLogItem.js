@@ -2,7 +2,6 @@ import React from 'react'
 import { Typography } from '@mui/material'
 
 const ChatLogItem = ({data, currentUser}) => {
-    console.log(data)
     return (
         <li className={data.author.id == currentUser.id ? 'chat-item-sent' : 'chat-item-received'} >
 

@@ -26,7 +26,6 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
 
     useEffect(() => {
         if (chatLogs) {
-            console.log(chatLogs)
             let array = chatLogs.map((item) => <ChatLogItem key={item.id} data={item} currentUser={currentUser} /> )
             setChatLogsArray(array)
         }
@@ -41,7 +40,6 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
     }
 
     const handleInputChange = (e) => {
-        console.log(e.target.value)
         setMessage(e.target.value)
     }
 
@@ -54,11 +52,10 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
             user_id: currentUser.id
         }, {
             connected: () => {
-                console.log(`connected to channel ${conversationId}`)
+                
             },
             received: async (data) => {
                 const resp = await JSON.parse(data);
-                console.log(resp)
                 setChatLogs([...resp.chat_messages])
             },
             create: function (chatContent) {

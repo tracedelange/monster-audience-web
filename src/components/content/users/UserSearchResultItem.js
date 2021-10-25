@@ -11,7 +11,6 @@ const UserSearchResultItem = ({ data, timeAgo, base }) => {
     const history = useHistory();
     
     const handleUserClick = (e) => {
-        console.log('clicked')
         history.push(`${base}/users/${data.id}`)
     }
 

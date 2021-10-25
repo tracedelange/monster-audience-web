@@ -61,8 +61,6 @@ const UserDetailsPage = ({ base }) => {
     }, [id])
 
 
-    console.log(userDetails.follows)
-
 
     useEffect(() => {
         if (feed.length > 0) {
@@ -101,9 +99,7 @@ const UserDetailsPage = ({ base }) => {
 
     const handleReviewListScroll = (e) => {
         if (e.target.scrollHeight - e.target.scrollTop === (e.target.clientHeight)) {
-            console.log('Fetching next page...')
             let nextPage = page + 1
-            console.log(nextPage)
             getSpecificUserFeed(id, nextPage)
                 .then(resp => {
                     if (resp.ok) {
