@@ -32,6 +32,7 @@ const ConversationPage = ({ handleBack, conversationId, currentUser }) => {
         }
     }, [chatLogs])
 
+    console.log(websocket)
 
     const submitMessage = (e) => {
         e.preventDefault()
