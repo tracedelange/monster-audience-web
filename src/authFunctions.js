@@ -1,8 +1,8 @@
-import {baseURL} from './globals.js'
+import { baseURL } from './globals.js'
 
 export const submitSignup = async (signupObject) => {
 
-    
+
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
     const body = signupObject
@@ -12,7 +12,7 @@ export const submitSignup = async (signupObject) => {
 }
 
 export const submitLogin = async (loginObject) => {
-    
+
     const method = "POST"
     const headers = { "Content-Type": "application/json" }
     const body = loginObject

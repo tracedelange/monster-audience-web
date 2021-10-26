@@ -511,7 +511,6 @@ code {
 
 .subject-search-results p {}
 
-
 .empty-feed {
   display: flex;
   flex-direction: column;
@@ -525,7 +524,6 @@ code {
 .empty-feed p {
   font-size: 3vmin;
 }
-
 
 .subject-options-container {
   width: 80%;
@@ -659,7 +657,6 @@ code {
   align-items: center;
 }
 
-
 .chatbox-container {
   width: 50%;
   margin-left: 25%;
@@ -787,11 +784,12 @@ code {
   overflow-y: scroll;
   /* background-color: #e3f9ff; */
 }
+
 .new-convo-user-item {
   cursor: pointer;
   text-align: left;
   font-size: 5vmin;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0, 0, 0, .2);
   /* margin: 4px; */
   padding: 4px;
 }
@@ -803,9 +801,35 @@ code {
 
 .new-chat-dialog {
   transition: all .2s ease-in;
-
 }
+
 .empty-feed-link:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.conversation-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.conversation-header-first {
+  width: 40%;
+}
+
+.conversation-header-second {
+  width: 20%;
+  text-align: center;
+}
+.conversation-header-h3 {
+  margin: 0%;
+  font-size: 24px;
+  text-align: center;
+  color: #1481BA;
+  cursor: pointer;
+}
+
+.conversation-header-third {
+  width: 40%;
 }

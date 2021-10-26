@@ -23,8 +23,8 @@ const ChatLanding = () => {
 
     const [chosenConversation, setChosenConversation] = useState(null)
 
-    const handleConvoClick = (convoId) => {
-        setChosenConversation(convoId)
+    const handleConvoClick = (convoData) => {
+        setChosenConversation(convoData)
     }
 
     const handleChatSubmit = (recipient) => {
@@ -64,7 +64,7 @@ const ChatLanding = () => {
         <div>
 
             {chosenConversation ?
-                <ConversationPage currentUser={currentUser} handleBack={() => setChosenConversation(null)} conversationId={chosenConversation} />
+                <ConversationPage currentUser={currentUser} handleBack={() => setChosenConversation(null)} conversationData={chosenConversation} />
                 :
                 conversationsLoaded ?
                     <>
