@@ -1,4 +1,6 @@
-# Monster Audience - Under Development
+# Monster Audience
+
+<img src='./src/assets/MA.png' alt='project-logo' style='width:5%'/>
 
 A social platform based around reviewing and rating user submitted subjects like movies, books, places and experiences.
 
