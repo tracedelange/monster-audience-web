@@ -511,7 +511,6 @@ code {
 
 .subject-search-results p {}
 
-
 .empty-feed {
   display: flex;
   flex-direction: column;
@@ -525,7 +524,6 @@ code {
 .empty-feed p {
   font-size: 3vmin;
 }
-
 
 .subject-options-container {
   width: 80%;
@@ -659,7 +657,6 @@ code {
   align-items: center;
 }
 
-
 .chatbox-container {
   width: 50%;
   margin-left: 25%;
@@ -700,12 +697,13 @@ code {
 .chat-logs {
   display: flex;
   flex-direction: column;
-  background-color: #e3f9ff;
+  /* background-color: #e3f9ff; */
 }
 
 .chat-item-sent {
   display: flex;
   width: 95%;
+  height: fit-content;
   margin-right: 5%;
   flex-direction: row-reverse;
   /* background-color: #65aad0; */
@@ -713,12 +711,17 @@ code {
 }
 
 .chat-item-sent span {
-  /* border-radius: 5%; */
-  /* color: white; */
-  border: 2px solid #1481BA
+  color: white;
+  border: 2px solid #1481BA;
+  background-color: #1481BA;
+  border-radius: 5% / 25%;
+  border-bottom-right-radius: 0%;
+  text-align: right;
+  width: fit-content;
 }
 
 .chat-item-received {
+  height: fit-content;
   width: 95%;
   display: flex;
   justify-items: flex-end;
@@ -727,7 +730,22 @@ code {
 }
 
 .chat-item-received span {
-  border: 2px solid #B3EAF9
+  background-color: #e3f9ff;
+  border: 2px solid #e3f9ff;
+  width: fit-content;
+  text-align: left;
+  border-radius: 5% / 25%;
+  border-bottom-left-radius: 0%;
+}
+
+.message-age {
+
+  /* padding: 0%; */
+  /* margin: 0%; */
+  /* margin-left: 5%; */
+  padding-left: 0%;
+  margin: 0%;
+
 }
 
 .conversation-list {
@@ -736,6 +754,8 @@ code {
   border: 2px solid #65aad0;
   width: 70%;
   margin-left: 15%;
+  max-height: 70vh;
+  overflow-y: scroll;
   /* margin-top: 5%; */
   list-style: none;
 }
@@ -787,11 +807,12 @@ code {
   overflow-y: scroll;
   /* background-color: #e3f9ff; */
 }
+
 .new-convo-user-item {
   cursor: pointer;
   text-align: left;
   font-size: 5vmin;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0, 0, 0, .2);
   /* margin: 4px; */
   padding: 4px;
 }
@@ -803,9 +824,43 @@ code {
 
 .new-chat-dialog {
   transition: all .2s ease-in;
-
 }
+
 .empty-feed-link:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+.conversation-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.conversation-header-first {
+  width: 40%;
+}
+
+.conversation-header-second {
+  width: 20%;
+  text-align: center;
+}
+.conversation-header-h3 {
+  margin: 0%;
+  font-size: 24px;
+  text-align: center;
+  color: #1481BA;
+  cursor: pointer;
+}
+
+.conversation-header-third {
+  width: 40%;
+}
+
+.message-container {
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }

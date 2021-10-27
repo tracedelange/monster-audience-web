@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Feed from './feed/Feed'
 import Sidebar from './Sidebar'
 import { Switch, Route } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Profile from './Profile'
 import { Paper } from '@mui/material'
-import {getUserFeed} from '../../requests'
+// import {getUserFeed} from '../../requests'
 import UsersPage from './users/UsersPage'
 import SubjectsPage from './subjects/SubjectsPage'
 import UserDetailsPage from './users/UserDetailsPage'
@@ -19,7 +19,7 @@ const HomePage = () => {
 
     const base = `/home/${session.currentUser.user.username}`
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     // useEffect(()=>{
     //     getUserFeed()

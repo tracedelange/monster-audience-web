@@ -1,6 +1,7 @@
 const initialState = {
     currentUser: {},
-    loggedIn: false
+    loggedIn: false,
+    base: ''
   }
   
 const sessionsReducer = (state=initialState, action) => {
@@ -8,7 +9,8 @@ const sessionsReducer = (state=initialState, action) => {
       case "LOGIN":
         return {
           currentUser: action.payload,
-          loggedIn: true
+          loggedIn: true,
+          base: `/home/${action.payload.user.username}`
         }
       case "LOGOUT":
         return initialState;

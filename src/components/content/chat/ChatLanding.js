@@ -10,9 +10,7 @@ import { getFriendsList, submitNewChat, getConversations } from '../../../reques
 
 const ChatLanding = () => {
 
-    //reformat all of this action to REDUX once we get it working.
 
-    const [conversations, setConversations] = useState([])
     const [conversationsArray, setConversationsArray] = useState([])
     const [conversationsLoaded, setConversationsLoaded] = useState(false)
     const currentUser = useSelector(state => state.session.currentUser.user)
@@ -23,8 +21,8 @@ const ChatLanding = () => {
 
     const [chosenConversation, setChosenConversation] = useState(null)
 
-    const handleConvoClick = (convoId) => {
-        setChosenConversation(convoId)
+    const handleConvoClick = (convoData) => {
+        setChosenConversation(convoData)
     }
 
     const handleChatSubmit = (recipient) => {
@@ -32,7 +30,8 @@ const ChatLanding = () => {
         submitNewChat(recipient.id)
         .then((data)=>{
             if (data){
-                setConversationsArray([...conversationsArray, <ConversationListItem handleConversationClick={handleConvoClick} user={currentUser} key={data.id} data={data} />])
+                setChosenConversation(data)
+                // setConversationsArray([...conversationsArray, <ConversationListItem handleConversationClick={handleConvoClick} user={currentUser} key={data.id} data={data} />])
             }
         })
     }
@@ -64,7 +63,7 @@ const ChatLanding = () => {
         <div>
 
             {chosenConversation ?
-                <ConversationPage currentUser={currentUser} handleBack={() => setChosenConversation(null)} conversationId={chosenConversation} />
+                <ConversationPage currentUser={currentUser} handleBack={() => setChosenConversation(null)} conversationData={chosenConversation} />
                 :
                 conversationsLoaded ?
                     <>
@@ -78,7 +77,7 @@ const ChatLanding = () => {
                         </ul>
                     </>
                     :
-                    "Loading..."
+                    null
             }
         </div >
     )

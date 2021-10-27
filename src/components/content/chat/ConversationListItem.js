@@ -4,7 +4,7 @@ import { Divider } from '@mui/material'
 const ConversationListItem = ({ data, user, handleConversationClick }) => {
 
     return (
-        <li className="conversation-list-item" onClick={() => handleConversationClick(data.id)}>
+        <li className="conversation-list-item" onClick={() => handleConversationClick(data)}>
             <Divider />
             {data.recipient.id === user.id ?
                 <>
