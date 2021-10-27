@@ -58,7 +58,7 @@ export default function NewChatForm({ open, setOpen, handleClose, handleSubmitCh
           <TextField
             label='Username'
 
-            inputProps={{sx:{backgroundColor: selectedUser ? '#e3f9ff' : 'white'}}}
+            inputProps={{ sx: { backgroundColor: selectedUser ? '#e3f9ff' : 'white' } }}
             margin="dense"
             fullWidth
             autoComplete={"false"}
@@ -80,7 +80,12 @@ export default function NewChatForm({ open, setOpen, handleClose, handleSubmitCh
           <Button onClick={handleClose}>Cancel</Button>
 
 
-          <Button disabled={selectedUser ? false : true} onClick={() => handleSubmitChat(selectedUser)}>Create Chat</Button>
+          <Button disabled={selectedUser ? false : true} onClick={() => {
+            handleSubmitChat(selectedUser)
+            setUserFieldInput('')
+            setSelectedUser(null)
+            setUserArray([])
+          }}>Create Chat</Button>
 
         </DialogActions>
       </Dialog>

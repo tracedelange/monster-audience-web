@@ -5,9 +5,9 @@ import { loadChatLogs } from '../../../requests'
 import { TextField } from '@mui/material'
 import ChatLogItem from './ChatLogItem'
 import { websocket } from '../../../globals'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {setChatLogs, addMessage} from '../../../actions/chat'
+import { setChatLogs, addMessage } from '../../../actions/chat'
 
 
 const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
@@ -39,16 +39,27 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
 
     useEffect(() => {
         if (chatLogs) {
-            let array = chatLogs.map((item) => <ChatLogItem key={item.id} data={item} currentUser={currentUser} />)
+            let array = chatLogs.map((item, index, array) => {
+                console.log(index)
+                if (array[index + 1]) {
+                    if (array[index + 1].author.id == array[index].author.id) {
+                        return <ChatLogItem age={false} key={item.id} data={item} currentUser={currentUser} />
+                    } else {
+                        return <ChatLogItem age={true} key={item.id} data={item} currentUser={currentUser} />
+                    }
+                } else {
+                    return <ChatLogItem age={true} key={item.id} data={item} currentUser={currentUser} />
+                }
+            })
             setChatLogsArray(array)
         }
     }, [chatLogs])
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        chatLogsBottom.current.scrollIntoView({behavior: 'smooth'});
-        
-    },[chatLogsArray])
+        chatLogsBottom.current.scrollIntoView({ behavior: 'smooth' });
+
+    }, [chatLogsArray])
 
     const submitMessage = (e) => {
         e.preventDefault()
@@ -93,15 +104,13 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
         setConnected(true)
     }
 
-    console.log(conversationData)
-    console.log(currentUser)
 
     return (
         <div className='conversation-container'>
 
             <div className='conversation-header'>
                 <div className='conversation-header-first'>
-                <Button sx={{ color: 'white' }} variant='contained' onClick={handleBack}>Conversations</Button>
+                    <Button sx={{ color: 'white' }} variant='contained' onClick={handleBack}>Conversations</Button>
                 </div>
                 <div className='conversation-header-second'>
                     <h3 className='conversation-header-h3' onClick={handleUsernameClick}>{conversationData.recipient.id === currentUser.id ? conversationData.user.username : conversationData.recipient.username}</h3>
@@ -129,6 +138,7 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
                     variant='contained'
                     className='send'
                     type='submit'
+                    disabled={message == '' ? true : false}
                     onClick={submitMessage}>
                     Send
                 </Button>
