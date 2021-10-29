@@ -311,7 +311,7 @@ code {
 .search-result-list {
   overflow-y: scroll;
   list-style: none;
-  max-height: 70vh;
+  max-height: 65vh;
   min-height: fit-content;
   width: 80%;
   margin-left: 10%;
@@ -714,8 +714,8 @@ code {
   color: white;
   border: 2px solid #1481BA;
   background-color: #1481BA;
-  border-radius: 5% / 25%;
-  border-bottom-right-radius: 0%;
+  /* border-radius: 5% / 25%; */
+  /* border-bottom-right-radius: 0%; */
   text-align: right;
   width: fit-content;
 }
@@ -734,8 +734,8 @@ code {
   border: 2px solid #e3f9ff;
   width: fit-content;
   text-align: left;
-  border-radius: 5% / 25%;
-  border-bottom-left-radius: 0%;
+  /* border-radius: 5% / 25%; */
+  /* border-bottom-left-radius: 0%; */
 }
 
 .message-age {
@@ -864,3 +864,9 @@ code {
   margin-top: 1%;
   margin-bottom: 1%;
 }
+
+.message-object {
+  display: flex;
+  flex-direction: row;
+}
+
