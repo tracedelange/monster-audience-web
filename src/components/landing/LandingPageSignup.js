@@ -31,7 +31,10 @@ const LandingPageSignup = ({ handleSignupClick, updateUserData }) => {
 
     const handleSignupSubmit = (e) => {
         e.preventDefault()
-        // console.log(signupObject)
+        setSignupObject({
+            ...signupObject,
+            'username' : signupObject.username.toLowerCase()
+        })
         submitSignup(signupObject)
             .then((data) => {
                 if (data.errors){
