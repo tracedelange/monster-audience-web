@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { getSpecificSubject } from '../../../requests'
-import ReviewItem from '../feed/FeedItem'
 import TimeAgo from 'javascript-time-ago'
 import { useSelector } from 'react-redux'
-import SubjectReview from './SubjectReview'
 import { Box } from '@mui/system'
 import { Divider, Typography } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -14,7 +12,7 @@ import { useHistory } from 'react-router'
 
 const timeAgo = new TimeAgo('en-US')
 
-const SubjectDetailsPage = ({ base }) => {
+const SubjectDetailsPage = ( ) => {
 
     const { id } = useParams()
 
@@ -25,8 +23,8 @@ const SubjectDetailsPage = ({ base }) => {
     const [newReviewOpen, setNewReviewOpen] = useState(false)
 
     const history = useHistory()
+    const base = useSelector(state => state.session.base)
 
-    const user = useSelector(state => state.currentUser)
 
     useEffect(() => {
         getSpecificSubject(id)
@@ -34,7 +32,7 @@ const SubjectDetailsPage = ({ base }) => {
                 setSubjectData(response)
                 setDataLoaded(true)
             })
-    }, [])
+    }, [id])
 
     const handleNewReview = (data) => {
 
@@ -49,9 +47,9 @@ const SubjectDetailsPage = ({ base }) => {
     useEffect(() => {
 
         if (subjectData) {
-            const reviewArray = subjectData.reviews.map((item) => {
+            const reviewArray = subjectData.reviews.forEach((item) => {
                 if (item) {
-                    return <UserDetailsReviewFeedItem base={base} timeAgo={timeAgo} data={item} />
+                    return <UserDetailsReviewFeedItem timeAgo={timeAgo} data={item} />
                 }
             })
             setReviewArray(reviewArray)

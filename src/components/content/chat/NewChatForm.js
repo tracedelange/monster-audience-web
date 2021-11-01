@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import NewConvoUserItem from './NewConvoUserItem';
 
-export default function NewChatForm({ open, setOpen, handleClose, handleSubmitChat, friendsList, currentUser }) {
+export default function NewChatForm({ open, handleClose, handleSubmitChat, friendsList, currentUser }) {
 
 
   const [userArray, setUserArray] = useState([])
@@ -40,7 +40,7 @@ export default function NewChatForm({ open, setOpen, handleClose, handleSubmitCh
     })
 
     setUserArray(results)
-  }, [userFieldInput])
+  }, [userFieldInput, currentUser.id, friendsList])
 
   return (
     <div>
@@ -68,7 +68,7 @@ export default function NewChatForm({ open, setOpen, handleClose, handleSubmitCh
             onChange={handleInputChange}
           />
           <ul className='username-convo-list'>
-            {userArray.length == friendsList.length ?
+            {userArray.length === friendsList.length ?
               null
               :
               userArray

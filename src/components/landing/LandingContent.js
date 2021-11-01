@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/system'
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import monster from '../../assets/MA.png'
 
 const LandingContent = () => {

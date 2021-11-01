@@ -13,7 +13,7 @@ TimeAgo.addDefaultLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 
-const Profile = ({ session, base }) => {
+const Profile = ({ session }) => {
 
     const created_at = Date.parse(session.currentUser.user.created_at)
     const now = new Date() 
@@ -28,7 +28,6 @@ const Profile = ({ session, base }) => {
         localStorage.removeItem('jwt')
     }
 
-    console.log(session)
 
     return (
         <Box className='profile-page'>

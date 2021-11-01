@@ -8,9 +8,7 @@ import TimeAgo from 'javascript-time-ago'
 
 const timeAgo = new TimeAgo('en-US')
 
-const UsersPage = ({ base }) => {
-
-
+const UsersPage = () => {
 
     const handleUserSearchSubmit = (query) => {
         searchUsers(query)
@@ -26,15 +24,13 @@ const UsersPage = ({ base }) => {
     const [searchResultsArray, setSearchResultsArray] = useState([])
 
     useEffect(() => {
-        let array = searchResults.map(item => <UserSearchResultItem base={base} timeAgo={timeAgo} key={item.id} data={item} />)
+        let array = searchResults.map(item => <UserSearchResultItem timeAgo={timeAgo} key={item.id} data={item} />)
         setSearchResultsArray(array)
 
     }, [searchResults])
 
 
     return (
-
-
         <div>
             <SearchBar handleSubmission={handleUserSearchSubmit} label='Search Usernames' />
             <div className='search-results-stats'>

@@ -15,18 +15,18 @@ const ChatLogItem = ({ data, currentUser, age }) => {
 
     return (
 
-        <li className={data.author.id == currentUser.id ? 'chat-item-sent' : 'chat-item-received'} >
+        <li className={data.author.id === currentUser.id ? 'chat-item-sent' : 'chat-item-received'} >
             <div className='message-container'>
-                <Tooltip title={message_age} enterDelay={1000} placement={data.author.id == currentUser.id ? 'left' : 'right'}>
+                <Tooltip title={message_age} enterDelay={1000} placement={data.author.id === currentUser.id ? 'left' : 'right'}>
                     <div className='message-object'>
-                        <Box sx={data.author.id == currentUser.id ?
+                        <Box sx={data.author.id === currentUser.id ?
                             { minWidth: '10px', backgroundColor: '#1481BA', borderTopLeftRadius: '10px', borderBottomLeftRadius: '10px' }
                             :
                             { minWidth: '10px', backgroundColor: '#e3f9ff', borderTopLeftRadius: '10px' }
                         }
                         />
                         <Typography sx={{ fontSize: 20, minWidth: 'fit-content', maxWidth: '100%', padding: '10px' }} variant='p'> {data.content}</Typography>
-                        <Box sx={data.author.id == currentUser.id ?
+                        <Box sx={data.author.id === currentUser.id ?
                             { minWidth: '10px', backgroundColor: '#1481BA', borderTopRightRadius: '10px', borderBottomRightRadius: '0px' }
                             :
                             { minWidth: '10px', backgroundColor: '#e3f9ff', borderTopRightRadius: '10px', borderBottomRightRadius: '10px' }

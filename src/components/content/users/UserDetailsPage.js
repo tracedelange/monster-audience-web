@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { getSpecificUserFeed } from '../../../requests'
-import UserDetailsReviewFeedItem from './UserDetailsReviewFeedItem'
 import UserDetailsSubjectFeedItem from './UserDetailsSubjectFeeditem'
 import TimeAgo from 'javascript-time-ago'
 import { Typography } from '@mui/material'
@@ -20,7 +19,7 @@ const feed_sort = (a, b) => {
 }
 
 
-const UserDetailsPage = ({ base }) => {
+const UserDetailsPage = () => {
 
     const { id } = useParams();
     // const [feed, setFeed] = useState();
@@ -34,6 +33,7 @@ const UserDetailsPage = ({ base }) => {
     const [following, setFollowing] = useState(false)
 
     const dispatch = useDispatch();
+    const base = useSelector(state => state.session.base)
     const feed = useSelector(state => state.userFeed.userFeed)
     const page = useSelector(state => state.userFeed.userPage)
     const loggedUser = useSelector(state => state.session.currentUser.user)
@@ -58,37 +58,37 @@ const UserDetailsPage = ({ base }) => {
                     setDataLoaded(true)
                 }
             })
-    }, [id])
+    }, [id, dispatch])
 
 
 
     useEffect(() => {
         if (feed.length > 0) {
-            let array = feed.map(item => <UserDetailsSubjectFeedItem base={base} timeAgo={timeAgo} key={uuidv4()} data={item} userData={userDetails} />)
+            let array = feed.map(item => <UserDetailsSubjectFeedItem timeAgo={timeAgo} key={uuidv4()} data={item} userData={userDetails} />)
             setFeedArray(array)
         }
-    }, [feed])
+    }, [feed, userDetails])
 
     const handleFriendshipClick = (e, user_id) => {
         switch (e.target.id) {
             case "follow":
-                console.log('createFriendship')
                 createFriendShip(user_id)
                     .then(resp => {
                         if (resp.following.id) {
                             setFollowing(true)
                         }
                     })
-                break
+                break;
             case "unfollow":
-                console.log('destroyFriendship')
                 destroyFriendShip(user_id)
                     .then(resp => {
                         if (resp.ok) {
                             setFollowing(false)
                         }
                     })
-                break
+                break;
+            default:
+                break;
         }
     }
 
@@ -142,17 +142,17 @@ const UserDetailsPage = ({ base }) => {
                             <Typography variant='subheader'>{parseFloat(userDetails.social_counts.avg_rating).toFixed(2)} Average Rating</Typography>
                         </div>
                         {userDetails.id === loggedUser.id ?
-                                <Button
-                                    onClick={()=>{history.push(`${base}/profile`)}}
-                                    variant='contained'
-                                    sx={{ width: '20%', color: 'white' }}
-                                >
-                                    Profile Details
-                                </Button>
+                            <Button
+                                onClick={() => { history.push(`${base}/profile`) }}
+                                variant='contained'
+                                sx={{ width: '20%', color: 'white' }}
+                            >
+                                Profile Details
+                            </Button>
                             :
                             <Button
                                 variant='contained'
-                                sx={{ width: '10%' }}
+                                sx={{ width: '10%', color: 'white' }}
                                 onClick={((e) => { handleFriendshipClick(e, userDetails.id) })}
                                 id={
                                     following ?
@@ -166,7 +166,7 @@ const UserDetailsPage = ({ base }) => {
                                         :
                                         "primary"
                                 }
-                                sx={{ color: 'white' }}>
+                            >
                                 {
                                     following ?
                                         "Unfollow"

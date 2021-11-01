@@ -4,12 +4,13 @@ import { Box } from '@mui/system'
 import { Button } from '@mui/material'
 import { createFriendShip, destroyFriendShip } from '../../../requests'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
-const UserSearchResultItem = ({ data, timeAgo, base }) => {
+const UserSearchResultItem = ({ data, timeAgo }) => {
     
     const history = useHistory();
-    
+    const base = useSelector(state => state.session.base)
     const handleUserClick = (e) => {
         history.push(`${base}/users/${data.id}`)
     }
@@ -26,23 +27,23 @@ const UserSearchResultItem = ({ data, timeAgo, base }) => {
     const handleFriendshipClick = (e, user_id) => {
         switch (e.target.id) {
             case "follow":
-                console.log('createFriendship')
                 createFriendShip(user_id)
                     .then(resp => {
                         if (resp.following.id){
                             setFollowing(true)
                         }
                     })
-                break
+                break;
             case "unfollow":
-                console.log('destroyFriendship')
                 destroyFriendShip(user_id)
                     .then(resp => {
                         if (resp.ok){
                             setFollowing(false)
                         }
                     })
-                break
+                break;
+            default:
+                break;
         }
     }
 

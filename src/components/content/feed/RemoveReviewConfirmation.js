@@ -23,7 +23,7 @@ export default function AlertDialog({data, feedIndex}) {
 
     const handleDelete = () => {
         setOpen(false)
-        console.log(data)
+        // console.log(data)
         deleteReview(data.id)
         .then(res=> {
             if (res.ok){

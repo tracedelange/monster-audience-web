@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Paper, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import FeedItem from './FeedItem';
 import { useDispatch } from 'react-redux';
@@ -8,13 +7,12 @@ import { addNextPage } from '../../../actions/feed';
 import EmptyFeed from './EmptyFeed';
 
 
-const Feed = ({ base }) => {
+const Feed = () => {
 
     const [feedArray, setFeedArray] = useState()
     const { feed } = useSelector(state => state.feed);
     const page = useSelector(state => state.feed.page);
     const session = useSelector(state => state.session);
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -22,21 +20,16 @@ const Feed = ({ base }) => {
             .then(data => {
                 dispatch({ type: "SET_FEED", payload: data })
             })
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if (feed.length > 0) {
-            const feedArray = feed.map((item) => <FeedItem user={session.currentUser.user} base={base} key={item.id} feedIndex={feed.indexOf(item)} data={item} />)
+            const feedArray = feed.map((item) => <FeedItem user={session.currentUser.user} key={item.id} feedIndex={feed.indexOf(item)} data={item} />)
             setFeedArray(feedArray)
         }
-    }, [feed])
+    }, [feed, session.currentUser.user])
 
     const handleScroll = (e) => {
-
-        // console.log(e.target.scrollHeight)
-        // console.log(e.target.scrollTop)
-
-        // console.log(e.target.scrollHeight - e.target.scrollTop)
 
         if (e.target.scrollHeight - e.target.scrollTop === (e.target.clientHeight)) {
             console.log('Fetching next page...')
@@ -57,7 +50,7 @@ const Feed = ({ base }) => {
                 {feedArray ?
                     feedArray
                     :
-                    <EmptyFeed base={base} />
+                    <EmptyFeed />
                 }
             </ul>
         </div>

@@ -1,11 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { Box } from '@mui/system'
 import { Button } from '@mui/material'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-const SubjectOptions = ({searchResults, handleOptionsClick, activeButton }) => {
-
-
+const SubjectOptions = ({ handleOptionsClick, activeButton }) => {
 
     return (
         <Box className='subject-options-container'>

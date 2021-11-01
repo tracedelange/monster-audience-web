@@ -2,12 +2,14 @@ import React from 'react'
 import { Divider } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const UserDetailsReviewFeedItem = ({ data, timeAgo, base }) => {
+const UserDetailsReviewFeedItem = ({ data, timeAgo }) => {
 
     const created_at = Date.parse(data.created_at)
     const now = new Date()
     const dif = now.getTime() - created_at
+    const base = useSelector(state => state.session.base)
 
     const review_age = timeAgo.format(now.getTime() - dif)
 

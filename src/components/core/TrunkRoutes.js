@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import LandingPage from '../landing/LandingPage'
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom'
 import HomePage from '../content/HomePage.js'
@@ -23,7 +23,7 @@ const TrunkRoutes = () => {
                 }
             })
         }
-    },[])
+    },[dispatch])
 
 
     return (

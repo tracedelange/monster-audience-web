@@ -12,8 +12,6 @@ import { setChatLogs, addMessage } from '../../../actions/chat'
 
 const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
 
-
-    // const [chatLogs, setChatLogs] = useState([])
     const [chatLogsArray, setChatLogsArray] = useState([])
     const [socket, setSocket] = useState({})
     const [connected, setConnected] = useState(false)
@@ -26,7 +24,61 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
+    // const createSocket = () => {
+
+    //     let cable = Cable.createConsumer(websocket);
+    //     const chatsConnection = cable.subscriptions.create({
+    //         channel: 'ChatChannel',
+    //         id: conversationData.id,
+    //         user_id: currentUser.id
+    //     }, {
+    //         connected: () => {
+
+    //         },
+    //         received: async (data) => {
+    //             const resp = await JSON.parse(data);
+    //             dispatch(addMessage(resp))
+    //         },
+    //         create: function (chatContent) {
+    //             chatsConnection.perform('create', {
+    //                 content: chatContent
+    //             });
+    //         }
+    //     });
+
+    //     setSocket(chatsConnection)
+    //     setConnected(true)
+    // }
+
+
     useEffect(() => {
+
+        const createSocket = () => {
+
+            let cable = Cable.createConsumer(websocket);
+            const chatsConnection = cable.subscriptions.create({
+                channel: 'ChatChannel',
+                id: conversationData.id,
+                user_id: currentUser.id
+            }, {
+                connected: () => {
+    
+                },
+                received: async (data) => {
+                    const resp = await JSON.parse(data);
+                    dispatch(addMessage(resp))
+                },
+                create: function (chatContent) {
+                    chatsConnection.perform('create', {
+                        content: chatContent
+                    });
+                }
+            });
+    
+            setSocket(chatsConnection)
+            setConnected(true)
+        }
+
         if (!connected) {
             createSocket();
             loadChatLogs(conversationData.id)
@@ -35,14 +87,13 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
                     dispatch(setChatLogs(data, conversationData.recipient))
                 })
         }
-    }, [connected])
+    }, [connected, dispatch, conversationData, currentUser.id])
 
     useEffect(() => {
         if (chatLogs) {
             let array = chatLogs.map((item, index, array) => {
-                console.log(index)
                 if (array[index + 1]) {
-                    if (array[index + 1].author.id == array[index].author.id) {
+                    if (array[index + 1].author.id === array[index].author.id) {
                         return <ChatLogItem age={false} key={item.id} data={item} currentUser={currentUser} />
                     } else {
                         return <ChatLogItem age={true} key={item.id} data={item} currentUser={currentUser} />
@@ -53,7 +104,7 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
             })
             setChatLogsArray(array)
         }
-    }, [chatLogs])
+    }, [chatLogs, currentUser])
 
     useEffect(() => {
 
@@ -73,37 +124,8 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
     }
 
     const handleUsernameClick = () => {
-
         history.push(`${base}/users/${conversationData.recipient.id}`)
-
     }
-
-    const createSocket = () => {
-
-        let cable = Cable.createConsumer(websocket);
-        const chatsConnection = cable.subscriptions.create({
-            channel: 'ChatChannel',
-            id: conversationData.id,
-            user_id: currentUser.id
-        }, {
-            connected: () => {
-
-            },
-            received: async (data) => {
-                const resp = await JSON.parse(data);
-                dispatch(addMessage(resp))
-            },
-            create: function (chatContent) {
-                chatsConnection.perform('create', {
-                    content: chatContent
-                });
-            }
-        });
-
-        setSocket(chatsConnection)
-        setConnected(true)
-    }
-
 
     return (
         <div className='conversation-container'>
@@ -138,7 +160,7 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
                     variant='contained'
                     className='send'
                     type='submit'
-                    disabled={message == '' ? true : false}
+                    disabled={message === '' ? true : false}
                     onClick={submitMessage}>
                     Send
                 </Button>

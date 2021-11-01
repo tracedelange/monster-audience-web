@@ -43,6 +43,8 @@ const feedReducer = (state=initialState, action) => {
                 reviews : [...item.reviews.filter(review => {
                   if (review.id !== action.payload.review_id){
                     return review
+                  } else {
+                    return null
                   }
                 })]
               }

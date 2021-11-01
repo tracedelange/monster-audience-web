@@ -1,12 +1,11 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 import { Divider } from '@mui/material'
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useSelector } from 'react-redux';
 import RemoveReviewConfirmation from './RemoveReviewConfirmation'
 import { useHistory } from 'react-router-dom';
 
-const ReviewItem = ({ data, timeAgo, user, feedIndex, base }) => {
+const ReviewItem = ({ data, timeAgo, user, feedIndex  }) => {
 
     const now = new Date()
     const dif = now.getTime() - Date.parse(data.created_at)
@@ -14,10 +13,10 @@ const ReviewItem = ({ data, timeAgo, user, feedIndex, base }) => {
 
     const history = useHistory()
 
+    const base = useSelector(state => state.session.base)
+
     const handleUsernameClick = () => {
-
         history.push(`${base}/users/${data.user_id}`)
-
     }
 
 

@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Divider } from '@mui/material'
 import { TextField } from '@mui/material'
 import Rating from '@mui/material/Rating';
 import { Button } from '@mui/material';
-import { color } from '@mui/system';
 import { postReview } from '../../../requests';
-import { useDispatch } from 'react-redux';
-import { addReviewToFeed } from '../../../actions/feed'
 
 
-const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendReview }) => {
+const SubjectDetailsNewReviewForm = ({ subjectId, appendReview }) => {
 
-    const dispatch = useDispatch()
 
     const [newReviewObject, setNewReviewObject] = useState({
         rating: 0,
@@ -21,12 +17,9 @@ const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendRe
 
     const handleReviewSubmission = (e) => {
         e.preventDefault()
-        // console.log(newReviewObject)
-        // console.log()
         postReview(newReviewObject)
             .then(data => {
                 if (data.errors) {
-                    console.log("We've got a problem!")
                     console.log(data.errors)
                 } else {
                     appendReview(data)
@@ -52,8 +45,6 @@ const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendRe
 
                         <h2 className='rating'>{(newReviewObject.rating)}/10</h2>
                         <Rating sx={{ fontSize: '1vw', }} name="rating" value={newReviewObject.rating} max={10} onChange={handleInputChange} />
-
-                        {/* <Typography sx={{ paddingTop: "2%" }}>Rated {review_age}, by {data.username}</Typography> */}
                     </div>
                     <Divider orientation='vertical' flexItem variant='middle' />
                     <div className='contentBox'>
@@ -82,7 +73,6 @@ const SubjectDetailsNewReviewForm = ({ subjectId, feedIndex, closeForm, appendRe
                                 Review
                             </Button>
                         </div>
-                        {/* <Typography>{data.content}</Typography> */}
                     </div>
                 </li>
             </form>

@@ -1,12 +1,11 @@
 import { TextField } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@mui/material'
 
 const SearchBar = ({label, handleSubmission, lowerCaseQuery=true, buttonSecondary=false}) => {
 
     const [query, setQuery] = useState('')
-
 
     const handleChange = (e) => {
         setQuery(e.target.value)

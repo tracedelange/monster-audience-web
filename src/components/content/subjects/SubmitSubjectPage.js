@@ -6,9 +6,11 @@ import { Button } from '@mui/material'
 import LockIcon from '@mui/icons-material/Lock';
 import { postSubject } from '../../../requests'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const SubmitSubjectPage = ({ base }) => {
+const SubmitSubjectPage = ( ) => {
 
+    const base = useSelector(state => state.session.base)
     const [errors, setErrors] = useState([])
     const [submitReady, setSubmitReady] = useState(false)
     const [newSubject, setNewSubject] = useState({
@@ -69,13 +71,13 @@ const SubmitSubjectPage = ({ base }) => {
         <Box className='create-subject-form-container'>
             <Box className='create-subject-title'>
                 <Typography variant='h4'>Create a Subject</Typography>
-                {newSubject.public == false ? <LockIcon sx={{ fontSize: 30 }} /> : null}
+                {newSubject.public === false ? <LockIcon sx={{ fontSize: 30 }} /> : null}
             </Box>
             <form onSubmit={handleFormSubmit} onChange={handleFormChange} className='create-subject-form'>
                 <TextField id='name' label='Title' value={newSubject.name} fullWidth ></TextField>
                 <TextField id='description' multiline rows={4} value={newSubject.description} fullWidth label='Description' ></TextField>
 
-                <Button sx={{ color: newSubject.public == true ? "white" : "black" }} color={newSubject.public == true ? "primary" : "secondary"} onClick={handlePrivateButtonClick} variant='contained'>{newSubject.public == true ? "Public" : "Private"}</Button>
+                <Button sx={{ color: newSubject.public === true ? "white" : "black" }} color={newSubject.public === true ? "primary" : "secondary"} onClick={handlePrivateButtonClick} variant='contained'>{newSubject.public === true ? "Public" : "Private"}</Button>
 
                 <Typography variant='h5'  >Optional:</Typography>
                 <TextField id='city' value={newSubject.city} label='City'></TextField>

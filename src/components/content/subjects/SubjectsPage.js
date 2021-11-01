@@ -12,27 +12,22 @@ import TimeAgo from 'javascript-time-ago'
 
 const timeAgo = new TimeAgo('en-US')
 
-const SubjectsPage = ({ base }) => {
+const SubjectsPage = ( ) => {
 
     const history = useHistory()
     const [searchResultsArray, setSearchResultsArray] = useState([])
     const [firstQuery, setFirstQuery] = useState(false)
-    // const [searchResults, setSearchResults] = useState([])
 
     const dispatch = useDispatch()
 
-    const subjectState = useSelector(state => state.subjects);
+    const base = useSelector(state => state.session.base)
     const subjectFeed = useSelector(state => state.subjects.subjectFeed);
     const feedType = useSelector(state => state.subjects.feedType);
     const page = useSelector(state => state.subjects.subjectPage);
 
 
     const handleScroll = (e) => {
-        // console.log(e.target.scrollHeight - e.target.scrollTop)
-        // console.log(e.target.clientHeight)
-
         if (e.target.scrollHeight - e.target.scrollTop === (e.target.clientHeight)) {
-            console.log('Fetching next page...')
             let nextPage = page + 1
             switch (feedType) {
                 case 'best':
@@ -61,9 +56,6 @@ const SubjectsPage = ({ base }) => {
 
 
     const handleOptionsClick = (e) => {
-
-        // console.log(feedType)
-        // console.log(e.target.id)
 
         if (feedType !== e.target.id) {
 
@@ -111,11 +103,11 @@ const SubjectsPage = ({ base }) => {
                     dispatch(setSubjects(data, 'recent'))
                 }
             })
-    }, [])
+    }, [dispatch])
 
 
     useEffect(() => { //Anytime feed state is updated, new results will be rendered.
-        let array = subjectFeed.map(item => <SubjectSearchResultItem base={base} timeAgo={timeAgo} key={item.id} data={item} history={history} />)
+        let array = subjectFeed.map(item => <SubjectSearchResultItem timeAgo={timeAgo} key={item.id} data={item} />)
         setSearchResultsArray(array)
     }, [subjectFeed])
 
@@ -123,7 +115,7 @@ const SubjectsPage = ({ base }) => {
         <div>
             <SearchBar
                 handleSubmission={handleSubjectSearchSubmit}
-                buttonSecondary={feedType == 'search' ? true : false}
+                buttonSecondary={feedType === 'search' ? true : false}
                 label={'Search Subjects'}
                 lowerCaseQuery={false}
             />
@@ -137,7 +129,6 @@ const SubjectsPage = ({ base }) => {
                     <NoResultsFound />
                     :
                     null
-                // {subjectFeedArray}
             }
         </div>
     )

@@ -31,7 +31,6 @@ const ChatLanding = () => {
         .then((data)=>{
             if (data){
                 setChosenConversation(data)
-                // setConversationsArray([...conversationsArray, <ConversationListItem handleConversationClick={handleConvoClick} user={currentUser} key={data.id} data={data} />])
             }
         })
     }
@@ -53,7 +52,7 @@ const ChatLanding = () => {
             }
         })
 
-    }, [])
+    }, [currentUser])
 
     const newChatFormClose = () => {
         setNewChatFormOpen(false)

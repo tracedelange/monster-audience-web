@@ -4,15 +4,16 @@ import { Box } from '@mui/system'
 import UserDetailsReviewFeedItem from './UserDetailsReviewFeedItem'
 import { Typography } from '@mui/material'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
-const UserDetailsSubjectFeeditem = ({ data, timeAgo, base }) => {
+const UserDetailsSubjectFeeditem = ({ data, timeAgo }) => {
     
     const [reviewData, setReviewData] = useState([])
     const [subjectData, setSubjectData] = useState([])
     const [reviewArray, setReviewArray] = useState([])
     const [subjectAge, setSubjectAge] = useState(0)
-    
+    const base = useSelector(state => state.session.base)
     
     const history = useHistory();
     
@@ -27,16 +28,15 @@ const UserDetailsSubjectFeeditem = ({ data, timeAgo, base }) => {
             setSubjectData(data.subject)
             setSubjectAge(data.subject.created_at)
         }
-        
-    }, [])
+    }, [data])
     
     useEffect(() => {
         if (Array.isArray(reviewData)) {
-            setReviewArray(reviewData.map(item => <UserDetailsReviewFeedItem base={base} timeAgo={timeAgo}  key={item.id} data={item} />))
+            setReviewArray(reviewData.map(item => <UserDetailsReviewFeedItem timeAgo={timeAgo}  key={item.id} data={item} />))
         } else {
-            setReviewArray([<UserDetailsReviewFeedItem key={reviewData.id} base={base} timeAgo={timeAgo} data={reviewData} />])
+            setReviewArray([<UserDetailsReviewFeedItem key={reviewData.id} timeAgo={timeAgo} data={reviewData} />])
         }
-    }, [reviewData])
+    }, [reviewData, timeAgo])
 
     const handleUsernameClick = () => {
         history.push(`${base}/users/${subjectData.user_id}`)
