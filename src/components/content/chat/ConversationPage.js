@@ -24,60 +24,34 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    // const createSocket = () => {
+    const createSocket = () => {
 
-    //     let cable = Cable.createConsumer(websocket);
-    //     const chatsConnection = cable.subscriptions.create({
-    //         channel: 'ChatChannel',
-    //         id: conversationData.id,
-    //         user_id: currentUser.id
-    //     }, {
-    //         connected: () => {
+        let cable = Cable.createConsumer(websocket);
+        const chatsConnection = cable.subscriptions.create({
+            channel: 'ChatChannel',
+            id: conversationData.id,
+            user_id: currentUser.id
+        }, {
+            connected: () => {
 
-    //         },
-    //         received: async (data) => {
-    //             const resp = await JSON.parse(data);
-    //             dispatch(addMessage(resp))
-    //         },
-    //         create: function (chatContent) {
-    //             chatsConnection.perform('create', {
-    //                 content: chatContent
-    //             });
-    //         }
-    //     });
+            },
+            received: async (data) => {
+                const resp = await JSON.parse(data);
+                dispatch(addMessage(resp))
+            },
+            create: function (chatContent) {
+                chatsConnection.perform('create', {
+                    content: chatContent
+                });
+            }
+        });
 
-    //     setSocket(chatsConnection)
-    //     setConnected(true)
-    // }
+        setSocket(chatsConnection)
+        setConnected(true)
+    }
 
 
     useEffect(() => {
-
-        const createSocket = () => {
-
-            let cable = Cable.createConsumer(websocket);
-            const chatsConnection = cable.subscriptions.create({
-                channel: 'ChatChannel',
-                id: conversationData.id,
-                user_id: currentUser.id
-            }, {
-                connected: () => {
-    
-                },
-                received: async (data) => {
-                    const resp = await JSON.parse(data);
-                    dispatch(addMessage(resp))
-                },
-                create: function (chatContent) {
-                    chatsConnection.perform('create', {
-                        content: chatContent
-                    });
-                }
-            });
-    
-            setSocket(chatsConnection)
-            setConnected(true)
-        }
 
         if (!connected) {
             createSocket();
@@ -87,7 +61,7 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
                     dispatch(setChatLogs(data, conversationData.recipient))
                 })
         }
-    }, [connected, dispatch, conversationData, currentUser.id])
+    }, [connected])
 
     useEffect(() => {
         if (chatLogs) {
@@ -124,7 +98,12 @@ const ConversationPage = ({ handleBack, conversationData, currentUser }) => {
     }
 
     const handleUsernameClick = () => {
-        history.push(`${base}/users/${conversationData.recipient.id}`)
+        {
+            conversationData.recipient.id === currentUser.id ?
+            history.push(`${base}/users/${conversationData.user.id}`)
+            :
+            history.push(`${base}/users/${conversationData.recipient.id}`)
+        }
     }
 
     return (
