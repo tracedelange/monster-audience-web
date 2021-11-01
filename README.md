@@ -22,7 +22,7 @@ You can register an account for Monster Audience <a href='https://monster-audien
 
 ## Contact
 
-If you have any questions about this project or would like more information on the development process behind this project, you can visit my <a href=https://www.delangedev.com/#/'>personal web site</a> or <a href='mailto:tracedelange@me.com'> send me an email.</a>
+If you have any questions about this project or would like more information on the development process behind this project, you can visit my <a href='https://www.delangedev.com/#/'>personal web site</a> or <a href='mailto:tracedelange@me.com'> send me an email.</a>
 
 
 <!-- ## Acknowledgments
