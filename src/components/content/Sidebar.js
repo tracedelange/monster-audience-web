@@ -30,23 +30,23 @@ const Sidebar = ({ session }) => {
             </Box>
             <Button variant='contained' color='primary' id='feed' onClick={handleLinkClick}>
                 Feed
-                <FormatListBulletedIcon />
+                <FormatListBulletedIcon onClick={handleLinkClick} id='feed'/>
             </Button>
             <Button variant='contained' color='primary' id='users' onClick={handleLinkClick}>
                 Users
-                <SearchIcon />
+                <SearchIcon id='users' onClick={handleLinkClick} />
             </Button>
             <Button variant='contained' color='primary' id='subjects' onClick={handleLinkClick}>
                 Subjects
-                <LocalActivityOutlinedIcon />
+                <LocalActivityOutlinedIcon id='subjects' onClick={handleLinkClick} />
             </Button>
             <Button variant='contained' color='primary' id='messages' onClick={handleLinkClick}>
                 Messages
-                <MessageOutlinedIcon />
+                <MessageOutlinedIcon id='messages' onClick={handleLinkClick} />
             </Button>
             <Button variant='contained' color='primary' id='profile' onClick={() => { history.push(`${base}/users/${session.currentUser.user.id}`) }}>
                 Profile
-                <AccountBoxOutlinedIcon />
+                <AccountBoxOutlinedIcon id='profile' onClick={() => { history.push(`${base}/users/${session.currentUser.user.id}`) }} />
             </Button>
         </Paper>
     )

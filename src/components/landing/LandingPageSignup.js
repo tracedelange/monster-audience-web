@@ -22,19 +22,22 @@ const LandingPageSignup = ({ handleSignupClick, updateUserData }) => {
 
     const handleFormChange = (e) => {
         setErrors()
-        setSignupObject({
-            ...signupObject,
-            [e.target.id]: e.target.value
-        })
-
+        if (e.target.id === 'username'){
+            setSignupObject({
+                ...signupObject,
+                'username' : e.target.value.toLowerCase()
+            })
+        } else {
+            setSignupObject({
+                ...signupObject,
+                [e.target.id]: e.target.value
+            })
+        }
     }
+
 
     const handleSignupSubmit = (e) => {
         e.preventDefault()
-        setSignupObject({
-            ...signupObject,
-            'username' : signupObject.username.toLowerCase()
-        })
         submitSignup(signupObject)
             .then((data) => {
                 if (data.errors){

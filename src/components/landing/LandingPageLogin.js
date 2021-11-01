@@ -17,10 +17,17 @@ const LandingPageLogin = ({ handleSignupClick, updateUserData }) => {
 
     const handleFormChange = (e) => {
         setErrors([])
-        setLoginObject({
-            ...loginObject,
-            [e.target.id]: e.target.value
-        })
+        if (e.target.id === 'username') {
+            setLoginObject({
+                ...loginObject,
+                'username' : e.target.value.toLowerCase()
+            })
+        } else {
+            setLoginObject({
+                ...loginObject,
+                [e.target.id]: e.target.value
+            })
+        }
 
     }
 
