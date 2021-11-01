@@ -36,9 +36,15 @@ const SubjectDetailsPage = ( ) => {
 
     const handleNewReview = (data) => {
 
-        let newReview = <UserDetailsReviewFeedItem timeAgo={timeAgo} data={data} />
-        setReviewArray([newReview, ...reviewArray])
-        setNewReviewOpen(false)
+        let newReview = <UserDetailsReviewFeedItem timeAgo={timeAgo} key={data.id} data={data} />
+
+        if (reviewArray.length > 0){
+            setReviewArray([newReview, ...reviewArray])
+            setNewReviewOpen(false) 
+        } else {
+            setReviewArray([newReview])
+            setNewReviewOpen(false) 
+        }
 
 
     }
@@ -47,9 +53,11 @@ const SubjectDetailsPage = ( ) => {
     useEffect(() => {
 
         if (subjectData) {
-            const reviewArray = subjectData.reviews.forEach((item) => {
+            const reviewArray = subjectData.reviews.map((item) => {
                 if (item) {
-                    return <UserDetailsReviewFeedItem timeAgo={timeAgo} data={item} />
+                    return <UserDetailsReviewFeedItem timeAgo={timeAgo} key={item.id} data={item} />
+                } else {
+                    return null
                 }
             })
             setReviewArray(reviewArray)

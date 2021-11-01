@@ -44,7 +44,7 @@ const SubjectDetailsNewReviewForm = ({ subjectId, appendReview }) => {
                     <div className='subject-details-infoBox'>
 
                         <h2 className='rating'>{(newReviewObject.rating)}/10</h2>
-                        <Rating sx={{ fontSize: '1vw', }} name="rating" value={newReviewObject.rating} max={10} onChange={handleInputChange} />
+                        <Rating sx={{ fontSize: '1vw', }} name="rating" value={parseInt(newReviewObject.rating)} max={10} onChange={handleInputChange} />
                     </div>
                     <Divider orientation='vertical' flexItem variant='middle' />
                     <div className='contentBox'>
