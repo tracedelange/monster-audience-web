@@ -13,7 +13,7 @@ A social platform based around reviewing and rating user submitted subjects like
 
 Monster Audience is A fullstack application developed with Ruby on Rails and React. The application features full client-side authentication by utilizing JWT and localStorage. The application consists of two repositories (web and backend), both of which are hosted on Heroku.
 
-This repository contains the front-end code for the Monster Audience project. If you're interested in the backend code, you can find it at <a href='https://github.com/tracedelange/monster-audience-backend'>here</a>
+This repository contains the front-end code for the Monster Audience project. If you're interested in the backend code, you can find it <a href='https://github.com/tracedelange/monster-audience-backend'>here</a>
 
 ## Visit
 
